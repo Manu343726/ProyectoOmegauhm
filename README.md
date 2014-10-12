@@ -2,9 +2,9 @@
 
 **Recursos para los alumnos, por los alumnos**
 
-*Laura María de Castro Saturio*
-*Manuel Sánchez Pérez*
-*Rafael Caturra Torrecilla*
+*Laura María de Castro Saturio*  
+*Manuel Sánchez Pérez*  
+*Rafael Caturra Torrecilla*  
 
 ## ¿Qué es el proyecto Ωuhm?
 
