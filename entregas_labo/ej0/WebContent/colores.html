@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title></title>
-<link rel="stylesheet" href="default.css">
+  <meta charset="UTF-8">
+  <title></title>
+  <link id="estilo" rel="stylesheet" type="text/css" href="default.css">
+  
+  <script>
+    function cambiarCSS(nuevo){
+      document.getElementById('estilo').setAttribute('href', nuevo);
+    }
+  </script>
 </head>
 
 
@@ -16,9 +22,9 @@
 <p>El tercer párrafo tampoco tiene nada de especial</p>
 
 <form action="colores.html" method="GET">
-  <button type="button" name="verde" value="verde">Verde</button>
-  <button type="button" name="marron" value="marron">Marrón y Grande</button>
-  <button type="button" name="consola" value="consola">Consola</button>
+  <button type="button" name="verde" value="verde" onclick="cambiarCSS('verde.css')">Verde</button>
+  <button type="button" name="marron" value="marron" onclick="cambiarCSS('marron.css')">Marrón y Grande</button>
+  <button type="button" name="consola" value="consola" onclick="cambiarCSS('consola.css')">Consola</button>
 </form>
 
 </body>
