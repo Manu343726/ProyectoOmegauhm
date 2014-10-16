@@ -4,7 +4,7 @@
 
 *Laura María de Castro Saturio*  
 *Manuel Sánchez Pérez*  
-*Rafael Caturra Torrecilla*  
+*Rafael Caturla Torrecilla*  
 
 ## ¿Qué es el proyecto Ωuhm?
 
