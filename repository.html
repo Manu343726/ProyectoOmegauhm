@@ -6,29 +6,53 @@
     </head>
     
     <body>
-          <header>
-            <h1>
-                <a href="index.html"><img src=""></a>
-                Proyecto OHM
-                <a href="login.html"> <button onclick="login.html">Log in</button></a>
-            </h1>
-            <p>About us</p>
-            <div>
-                <form>
-                    <input type="text" name="search" id="search_bar">
-                    <a href="repository.html"> Apuntes</a>
-                    <a href="forum.html">Consultas</a>
-                    
-                </form>
+        <!-- HEADER -->
+        <div class="header" id="header">
+            <!-- HEADER LOGO -->
+            <div id="hlogo">
+                <a href="index.html"> Proyecto OHM </a>
             </div>
-        </header>
-    
-        <div>
-            <a href="submit_content.html"> <button onclick="submit_content.html">Envia tus apuntes</button></a>
-            <button onclick="" > Grado Ingeniería Informática</button>
-            <button onclick="" > Grado Ingeniería Software</button>
-            <button onclick="" > Grado Ingeniería Computadores</button>
-            <button onclick="" > Doble Grado Informática-Matemáticas</button>
+            <p>About us</p> <!-- Esto luego será un link -->
+            <!-- SEARCH BAR --> 
+            <div id="hsearch_bar">
+                <input type="text" name="search" id="search_bar">
+            </div>
+            <!-- MENU -->
+            <div id="hmenus">
+                <!-- LOGIN -->
+                <div class="hlogin">
+                    <form>
+                        <a href="register.html"> Log in </a>
+                    </form>
+                </div>
+                <!-- NAVIGATION -->
+                <div class="hnav">
+                    <ul>
+                        <li>
+                            <!-- APUNTES -->
+                            <a href="repository.html"> Apuntes </a>
+                        </li>
+                        <li>
+                            <!-- CONSULTAS -->
+                            <a href="forum.html"> Consultas </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- REPOSITORY CONTENT -->
+        <div class="repository_content">
+            <div id="send_your_notes">
+                <button onclick=""> Send Your Notes </button>
+            </div>
+            <div id="Grades">
+                <button onclick="" > Grado Ingeniería Informática</button>
+                <button onclick="" > Grado Ingeniería Software</button>
+                <button onclick="" > Grado Ingeniería Computadores</button>
+                <button onclick="" > Doble Grado Informática-Matemáticas</button>
+            </div>
+            
     
         </div>
         

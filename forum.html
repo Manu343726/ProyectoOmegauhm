@@ -6,32 +6,92 @@
     </head>
     
     <body>
-          <header>
-            <h1>
-                <img src="">
-                Proyecto OHM
-                <a href="login.html"> <button onclick="login.html">Log in</button></a>
-            </h1>
-            <p>About us</p>
-            <p>
-                <form>
-                    <input type="text" name="search" id="search_bar">
-                    <button onclick="repository.html">Apuntes</button>
-                    <button onclick="forum.html">Consultas</button>
-                </form>
-            </p>
-        </header>
+        <!-- HEADER -->
+        <div class="header" id="header">
+            <!-- HEADER LOGO -->
+            <div id="hlogo">
+                <a href="index.html"> Proyecto OHM </a>
+            </div>
+            <p>About us</p> <!-- Esto luego será un link -->
+            <!-- SEARCH BAR --> 
+            <div id="hsearch_bar">
+                <input type="text" name="search" id="search_bar">
+            </div>
+            <!-- MENU -->
+            <div id="hmenus">
+                <!-- LOGIN -->
+                <div class="hlogin">
+                    <form>
+                        <a href="register.html"> Log in </a>
+                    </form>
+                </div>
+                <!-- NAVIGATION -->
+                <div class="hnav">
+                    <ul>
+                        <li>
+                            <!-- APUNTES -->
+                            <a href="repository.html"> Apuntes </a>
+                        </li>
+                        <li>
+                            <!-- CONSULTAS -->
+                            <a href="forum.html"> Consultas </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-        <button onclick="sumbmit_question.html">Haz Tu Pregunta</button>
-        <div id="asfsag">
-            <p>
-                <p>Parrafo 1.1</p>
-                <a href="">This is a link</a>
-            </p>
-            <p>
-                <p>Parrafo 2.1</p>
-                <a href="">This is a link</a>
-            </p>
-        <div>
+
+
+        <!-- FORUM CONTENT -->
+        <div class="forum_content">
+            <!-- TAGS -->
+            <div id="tag_list">
+                <ul>
+                    <li>
+                        <a href="">
+                            MMI
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            IW
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            EDA
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- MAKE A QUESTION -->
+            <div id="make_a_question">
+                <button onclick="">Haz Una Pregunta</button>
+            </div>
+            <!-- TOPICS WRAPPER -->
+            <div id="topics">
+                <div class="topics_header">
+                    <h1 id="topics_header_title">
+                        TOPICS
+                    </h1>
+                </div>
+                <div id="list_wrapper">
+                    <div class="question_summary_narrow" id="1">
+                        <h2> TOPIC 1 </h2>
+                    </div>
+                    <div class="question_summary_narrow" id="2">
+                        <h2> TOPIC 2 </h2>
+                    </div>
+                    <div class="question_summary_narrow" id="3">
+                        <h2> TOPIC 3 </h2>
+                    </div>
+                    <div class="question_summary_narrow" id="3">
+                        <h2> TOPIC 4 </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>
