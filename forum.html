@@ -1,96 +1,63 @@
 <html>
     <head>
         <title>Proyecto OHM</title>    
-        <link type="text/css" href="styles.css">
         <meta charset="UTF-8"> 
+
+        <style>
+            
+        </style>
     </head>
     
     <body>
-        <!-- HEADER -->
-        <div class="header" id="header">
-            <!-- HEADER LOGO -->
-            <div id="hlogo">
-                <a href="index.html"> Proyecto OHM </a>
-            </div>
-            <p>About us</p> <!-- Esto luego será un link -->
-            <!-- SEARCH BAR --> 
-            <div id="hsearch_bar">
-                <input type="text" name="search" id="search_bar">
-            </div>
-            <!-- MENU -->
-            <div id="hmenus">
-                <!-- LOGIN -->
-                <div class="hlogin">
-                    <form>
-                        <a href="register.html"> Log in </a>
-                    </form>
-                </div>
-                <!-- NAVIGATION -->
-                <div class="hnav">
-                    <ul>
-                        <li>
-                            <!-- APUNTES -->
-                            <a href="repository.html"> Apuntes </a>
-                        </li>
-                        <li>
-                            <!-- CONSULTAS -->
-                            <a href="forum.html"> Consultas </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <!-- ESTRUCTURA:
+            #forum_container
+            |
+            |->-#make_your_question
+            |
+            |->-#question_wrapper
+            |   |
+            |   |->-.question
+            |       |
+            |       |->-.votes
+            |       |->-.answers
+            |       |->-.views
+            |       |->-.qtext
+            |
+            |->-#tags_wrapper
+                |
+                |->-.tag
+        -->
 
+        <div id="forum_container">
 
-
-        <!-- FORUM CONTENT -->
-        <div class="forum_content">
-            <!-- TAGS -->
-            <div id="tag_list">
+            <div id="make_your_question">
+                <a href=""> Make Your Question </a>
+            </div>
+            <div id="question_wrapper">
                 <ul>
-                    <li>
-                        <a href="">
-                            MMI
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            IW
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            EDA
-                        </a>
+                    <li> 
+                        <div class="question">
+                            <div class="votes">
+                            </div>
+                            <div class="answers">
+                            </div>
+                            <div class="views">
+                            </div>
+                            <div class="qtext">
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <!-- MAKE A QUESTION -->
-            <div id="make_a_question">
-                <button onclick="">Haz Una Pregunta</button>
+            <div id="tags_wrapper">
+                <ul>
+                    <li>
+                        <div class="tag">
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <!-- TOPICS WRAPPER -->
-            <div id="topics">
-                <div class="topics_header">
-                    <h1 id="topics_header_title">
-                        TOPICS
-                    </h1>
-                </div>
-                <div id="list_wrapper">
-                    <div class="question_summary_narrow" id="1">
-                        <h2> TOPIC 1 </h2>
-                    </div>
-                    <div class="question_summary_narrow" id="2">
-                        <h2> TOPIC 2 </h2>
-                    </div>
-                    <div class="question_summary_narrow" id="3">
-                        <h2> TOPIC 3 </h2>
-                    </div>
-                    <div class="question_summary_narrow" id="3">
-                        <h2> TOPIC 4 </h2>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </body>

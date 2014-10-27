@@ -1,0 +1,65 @@
+body {
+    font-family: Arial;
+}
+div {
+    display: block;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* HEADER */
+#header {
+    width: 1200px;
+    height: 120px;
+    margin: 0 auto;   
+}
+#header #hleft {
+    width: 200px;
+    height: 100px;
+    float: left;
+}
+#header #hleft #logo {
+    width: 200px;
+    height: 90px;
+    background-color: blue;
+}
+#header #hleft #about_us {
+    width: 200px;
+    height: 30px;
+    background-color: red;
+}
+#header #hright {
+    width: 1000px;
+    height: 100px;
+    float: left;
+}
+#header #hright #search_bar {
+    width: 700px;
+    height: 30px;
+    padding: 15px 150px;
+    background-color: green;
+}
+#header #hright #menu {
+    width: 1000px;
+    height: 60px;
+    float: left;
+    background-color: yellow;
+    font-size: 125%;
+}
+.nav {
+    float: left;
+}
+.nav a {
+    display: block;
+    float: left;
+    padding: 18px 20px 19px 20px;
+    background-color: gray;
+
+}
+.login a {
+    float: right;
+    padding: 18px 20px 19px 20px;
+    background-color: gray;
+}
