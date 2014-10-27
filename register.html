@@ -1,25 +1,56 @@
 <html>
     <head>
         <title>Proyecto OHM</title>    
-        <link type="text/css" href="styles.css">
-        <meta charset="UTF-8"> 
-    </head>
-    <body>
-        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/general_style.css">
+        <link rel="stylesheet" href="css/header_style.css">
+        <link rel="stylesheet" href="css/register_style.css">
 
-        <!-- REGISTER CONTENT -->
-        <div class="register_content">
-            <form>
+    </head>
+    
+    <body>
+        <div id="header">
+            <div id="hleft">
+                <div id="logo">
+                    <a href="index.html"> Proyecto OHM </a>
+                </div>
+                <div id="about_us">
+                    <a href=""> About us </a>
+                </div>
+            </div>
+            <div id="hright">
+                <div id="search_bar">
+                    <input type="text" name="search" id="search_bar">
+                </div>
+                <div id="menu">
+                    <div class="nav">
+                        <a id="nav_repository" href="repository.html"> Apuntes </a>
+                        <a id="nav_forum" href="forum.html"> Consultas </a>
+                    </div>
+                    <div class="login">
+                
+                       <a href="register.html"> Log in </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="register_container">
+            <div id="name">
                 Usuario <input type="text" name="user">
-                Tipo 
+            </div> 
+            <div id="category">
+                Categoría
+
                 <input type="radio" name="role" value="true">
                 Profesor
                 <input type="radio" name="role" value="false">
                 Alumno
-                
-    
+            </div> 
+            <div id="password">
                 Contraseña <input type="text" name="passwd">
-            </form>
+            </div>
         </div>
     </body>
 </html>

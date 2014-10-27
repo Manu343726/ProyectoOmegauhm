@@ -1,0 +1,30 @@
+#register_container {
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+#register_container #name {
+    width: 1090px;
+    height: 30px;
+    margin: 5px;
+    background-color: lightgrey;
+    text-align: left;
+    margin-left:auto;
+    margin-right:auto;
+}
+#register_container #category {
+    width: 1090px;
+    height: 30px;
+    margin: 5px;
+    background-color: lightgray;
+    margin-left: auto;
+    margin-right: auto;
+}
+#register_container #password {
+    width: 1090px;
+    height: 30px;
+    margin: 5px;
+    background-color: lightgray;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -4,26 +4,10 @@
         <meta charset="UTF-8"> 
         <link rel="stylesheet" href="css/general_style.css">
         <link rel="stylesheet" href="css/header_style.css">
+        <link rel="stylesheet" href="css/submmit_question_style.css">
     </head>
     
     <body>
-        <!-- ESTRUCTURA:
-            #header
-            |
-            |->-#hleft
-            |   |
-            |   |->-#logo
-            |   |->-#about_us
-            |
-            |->-#hright
-                |
-                |->-#search_bar
-                |->-#menu
-                    |
-                    |->-.nav
-                    |->-.login
-        -->
-
         <div id="header">
             <div id="hleft">
                 <div id="logo">
@@ -50,6 +34,20 @@
                 
             </div>
         </div>
-        
+
+
+        <div id="submit_question_container">
+            <div id="question_title">
+                <p> Título </p>
+                <input type="text" name="title">
+            </div>
+            <div id="question_content">
+                <p> Contenido </p>
+                <textarea type="submit" name="content"> </textarea>
+            </div>
+            <div id="submmit_question" button">
+                <a href=""> Subir </a>
+            </div>
+        </div>
     </body>
 </html>

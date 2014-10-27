@@ -1,0 +1,21 @@
+#index_container{
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+
+#index_container #last_activity {
+    width: 1190px;
+    height: 390px;
+    margin: 5px;
+    background-color: lightgrey;
+    text-align: center;
+}
+#index_container #last_question {
+    width: 1190px;
+    height: 390px;
+    margin: 5px;
+    background-color: lightgray;
+    text-align: center;
+    
+}

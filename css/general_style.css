@@ -1,0 +1,12 @@
+body {
+    font-family: Arial;
+}
+div {
+    display: block;
+}
+a {
+    color: black;
+}
+ul {
+    list-style-type: none;
+}

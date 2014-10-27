@@ -1,0 +1,63 @@
+#header {
+    width: 1200px;
+    height: 120px;
+    margin: 0 auto;   
+}
+#header #hleft {
+    width: 200px;
+    height: 100px;
+    float: left;
+}
+#header #hleft #logo {
+    width: 190px;
+    height: 80px;
+    margin: 5px;
+    background-color: lightgray;
+}
+#header #hleft #about_us {
+    width: 190px;
+    height: 20px;
+    margin: 5px;
+    background-color: lightgray;
+}
+#header #hright {
+    width: 1000px;
+    height: 120px;
+    float: left;
+}
+#header #hright #search_bar {
+    width: 980px;
+    height: 30px;
+    padding: 5px;
+
+    background-color: lightgray;
+}
+#header #hright #menu {
+    width: 1000px;
+    height: 70px;
+    float: left;
+    font-size: 125%;
+}
+.nav {
+    width: 800px;
+    height: 70px;
+    float: left;
+}
+.nav a {
+    width: 190px;
+    height: 55px;
+    margin: 5px;
+    display: block;
+    float: left;
+    text-align: center;
+    background-color: lightgray;
+
+}
+.login a {
+    width: 190px;
+    height: 55px;
+    margin: 5px;
+    float: right;
+    text-align: center;
+    background-color: lightgray;
+}

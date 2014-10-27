@@ -1,0 +1,28 @@
+#submit_question_container {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+}
+#submit_question_container #question_title {
+    width: 800px;
+    height: 70px;
+    margin: 5px;
+    background-color: lightgray;
+}
+#submit_question_container #question_content {
+    width: 800px;
+    height: 200px;
+    margin: 5px;
+    background-color: lightgray;
+}
+#submit_question_container #question_content textarea {
+    width: 600px;
+    height: 150px;
+}
+#submit_question_container #submmit_question {
+    width: 100px;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: lightgray;
+}

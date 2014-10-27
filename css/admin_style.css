@@ -1,0 +1,15 @@
+#admin_container {
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+#admin_container #review_wrapper {
+    width: 1200px;
+    height: 1000px;
+}
+.review_container {
+    width: 1190px;
+    height: 140px;
+    margin: 5px;
+    background-color: lightgrey;
+}
