@@ -1,61 +1,38 @@
 <html>
-<head>
+    <head>
         <title>Proyecto OHM</title>    
         <link type="text/css" href="styles.css">
         <meta charset="UTF-8"> 
+
+        <style>
+            #repository_container{
+                width: 1200;
+
+            }
+
+            #upload_your_notes{
+
+            }
+        </style>
     </head>
     
     <body>
-        <!-- HEADER -->
-        <div class="header" id="header">
-            <!-- HEADER LOGO -->
-            <div id="hlogo">
-                <a href="index.html"> Proyecto OHM </a>
-            </div>
-            <p>About us</p> <!-- Esto luego será un link -->
-            <!-- SEARCH BAR --> 
-            <div id="hsearch_bar">
-                <input type="text" name="search" id="search_bar">
-            </div>
-            <!-- MENU -->
-            <div id="hmenus">
-                <!-- LOGIN -->
-                <div class="hlogin">
-                    <form>
-                        <a href="register.html"> Log in </a>
-                    </form>
-                </div>
-                <!-- NAVIGATION -->
-                <div class="hnav">
-                    <ul>
-                        <li>
-                            <!-- APUNTES -->
-                            <a href="repository.html"> Apuntes </a>
-                        </li>
-                        <li>
-                            <!-- CONSULTAS -->
-                            <a href="forum.html"> Consultas </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
         <!-- REPOSITORY CONTENT -->
-        <div class="repository_content">
+        <div id="repository_container">
             <div id="send_your_notes">
-                <button onclick=""> Send Your Notes </button>
+                <a href=""> Submmit your files </a>
             </div>
-            <div id="Grades">
-                <button onclick="" > Grado Ingeniería Informática</button>
-                <button onclick="" > Grado Ingeniería Software</button>
-                <button onclick="" > Grado Ingeniería Computadores</button>
-                <button onclick="" > Doble Grado Informática-Matemáticas</button>
+            <div id="folders_wrapper">
+                <div class="folder">
+                    <a href=""> Ing. Informática </a>
+                </div>
+                <div class="folder">
+                    <a href=""> Ing. Software </a>
+                </div>
+                <div class="folder">
+                    <a href=""> Ing. Computadores </a>
+                </div>
             </div>
-            
-    
         </div>
-        
     </body>
-
 </html>
