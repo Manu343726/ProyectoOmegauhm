@@ -121,6 +121,14 @@ public class HomeController {
 	/**
 	 * 
 	 */
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(Locale locale, Model model) {
+		return "admin";
+	}
+	
+	/**
+	 * 
+	 */
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signin(Locale locale, Model model) {
 		return "signin";
@@ -134,6 +142,12 @@ public class HomeController {
 		return "publication";
 	}
 	
-	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/resources/leeme", method = RequestMethod.GET)
+	public String leeme(Locale locale, Model model) {
+		return "LEEME";
+	}
 	
 }
