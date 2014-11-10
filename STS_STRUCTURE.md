@@ -18,4 +18,5 @@
  - jsp template system uses `<% whatever %>` for templates.
  - The header fragment includes the head, doctype, etc; and opens <body>.
  - The footer fragment closes <body>
+ - Resorces references for jsps (CSS, JS, etc) should start by *resources/* path 
 
