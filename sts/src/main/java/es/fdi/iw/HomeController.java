@@ -50,7 +50,8 @@ public class HomeController {
 			session.setAttribute("user", new User(formLogin, "admin".equals(formLogin) ? "admin" : "user"));
 		}
 		
-		return "redirect:" + formSource;
+		//return "redirect:" + formSource;
+		return "home";
 	}
 	
 	/**
@@ -99,5 +100,33 @@ public class HomeController {
 	public String about(Locale locale, Model model) {
 		logger.info("User is looking up 'about us'");
 		return "about";
-	}	
+	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/repository", method = RequestMethod.GET)
+	public String repository(Locale locale, Model model) {
+		return "repository";
+	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/forum", method = RequestMethod.GET)
+	public String forum(Locale locale, Model model) {
+		return "forum";
+	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String signin(Locale locale, Model model) {
+		return "signin";
+	}
+	
+	
+	
+	
 }
