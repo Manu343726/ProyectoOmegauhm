@@ -18,7 +18,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
+	<link href="resources/css/extra.css" rel="stylesheet">
+	
   </head>
 <body>
 

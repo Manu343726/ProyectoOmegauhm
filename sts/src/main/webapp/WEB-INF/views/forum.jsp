@@ -30,7 +30,9 @@
 <div class="container">
 	  <div class="row">
 				<div class="col-md-4 col-md-offset-4">
-					<button type="button" class="btn btn-primary btn-lg btn-block ">Haz una pregunta</button>
+					<a href="publication">
+						<button type="button" class="btn btn-primary btn-lg btn-block ">Haz una pregunta</button>
+					</a>
 				</div>
 	  </div>
 	  <br>

@@ -27,8 +27,8 @@
 
       <form class="form-signin" role="form" action="login" id="formularioLogin" method="POST">
         <h2 class="form-signin-heading">Log in</h2>
-        <input type="email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
+        <input type="email" class="form-control" placeholder="Email address" id="login" name="login" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" id="pass" name="pass" required>
         <button class="btn btn-lg btn-primary btn-block" name="submit" value="login" type="submit">Sign in</button>
       </form>
       
