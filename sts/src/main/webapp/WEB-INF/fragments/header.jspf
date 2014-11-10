@@ -33,8 +33,18 @@
             <button type="submit" class="btn btn-info">Buscar</button>
           </form>
 
+		  <a id="cajaMain" href="index.php"></a>
           <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-	           <a href="signin">Sign in</a>
+          		<c:choose>
+          			<c:when test="${not empty user}">
+          				Hola,
+          				<a href="user?u=${user.id}">${user.id}</a> !
+						( <a href="logout">Salir</a> )
+          			</c:when>
+          			<c:otherwise>
+          				<a href="signin">Sign in</a>
+          			</c:otherwise>
+          		</c:choose>
           </div>
         </div> <!-- navbar-form -->
         

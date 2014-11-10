@@ -126,6 +126,13 @@ public class HomeController {
 		return "signin";
 	}
 	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/publication", method = RequestMethod.GET)
+	public String publication(Locale locale, Model model) {
+		return "publication";
+	}
 	
 	
 	
