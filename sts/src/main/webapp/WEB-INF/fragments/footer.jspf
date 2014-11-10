@@ -1,7 +1,5 @@
-<div id="footer">
-        <span class="tablon">Tablón</span> 
-        es una aplicación de ejemplo desarrollada por manuel.freire@fdi.ucm.es
-	<%-- debug session and parameters - remove this if using production --%>
-	<%@ include file="../fragments/debug.jspf" %>
-</div>
+	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="resources/js/bootstrap.min.js"></script>
 </body>
+</html>
