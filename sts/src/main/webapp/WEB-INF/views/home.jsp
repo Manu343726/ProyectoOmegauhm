@@ -1,31 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Proyecto OHM</title>
+
+    <!-- Bootstrap -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="resources/css/questions.css" rel="stylesheet">
+    <link href="resources/css/activities.css" rel="stylesheet">
+    <link href="resources/css/extra.css" rel="stylesheet">
+
+  </head>
+<body>
+
 <%@ include file="../fragments/header.jspf" %>
-<div id="principal">
 
-<h1>Aplicación de ejemplo de IW</h1>
+<div class="container">
 
-<h3>En esta versión: "includes" jspf y soporte para sesiones</h3>
+      <div class="row row-offcanvas row-offcanvas-right">
 
-<ul>
-	<li>admin / cualquier contraseña de más de 3 caracteres = login de administrador</li>
-	<li>cualquier otro login de más de 3 caracteres / contraseña de más de 3 caracteres = usuario raso</li>
-	<li>si pulsas "logout" se cierra la sesión</li>
-</ul>
+        <div class="col-md-12">
+          <div class="jumbotron">
+            <h1>Proyecto OHM</h1>
+            <p>
+              "Descripción del proyecto"
+            </p>
+          </div> <!-- jumbotron -->
+        </div>
 
-<h3>Cosas a mirar</h3>
-<ul>
-	<li>el código de <code>src/main/webapp/WEB-INF/header.jspf</code>: una cabecera "rica", 
-		uso de control de flujo JSP vía "tags" de la JSP Standard Tag Library (JSTL): 
-		if, choose/when/otherwise, uso de condiciones JSP Expression Language (EL))</li>
-	<li>el código de <code>src/main/webapp/WEB-INF/footer.jspf</code>: información de "debug" sobre contextos, 
-		e iteración sobre mapas usando EL</li>
-	<li>si pulsas "más información" en el "footer" se pone una bandera "debug" en la sesión</li>
-	<li>los recursos en <code>src/main/webapp/resources</code> están accesibles bajo 
-		<code>mi-contexto/resources</code>; 
-		aquellos bajo <code>src/main/webapp/WEB-INF</code> sólo se pueden acceder desde dentro del JSP 
-		(pero no externamente: no puedes acceder a 'header.jspf' cambiando la URL del navegador)</li>
-</ul>
 
-Pulsa en <a href="about">este enlace</a> para saber más sobre esta aplicación.
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title">Últimas Preguntas</h1>
+            </div>
+            <div class="panel panel-body">
 
+
+              <div class="question-summary pull-left">
+                <div class="question-stats pull-left">
+                  <div class="pull-left q-votes">
+                    <div class="mini-counts">
+                      <span title="0 votes">0</span>
+                    </div>
+                    <div>votes</div>
+                  </div>
+                  <div class="pull-left q-answers">
+                    <div class="mini-counts">
+                      <span title="0 answers">0</span>
+                    </div>
+                    <div>answers</div>
+                  </div>
+                  <div class="pull-left q-views">
+                    <div class="mini-counts">
+                      <span title="0 views">0</span>
+                    </div>
+                    <div>views</div>
+                  </div>
+                </div> <!-- questions-stats -->
+
+
+                <div class="question-text pull-left">
+                  <h4>Título Pregunta</h4>
+                  <div class="btn-group tags pull-left">
+                    <button type="button" class="btn btn-xs">Tag1</button>
+                    <button type="button" class="btn btn-xs">Tag2</button>
+                    <button type="button" class="btn btn-xs">Tag3</button>
+                    <button type="button" class="btn btn-xs">Tag4</button>
+                  </div>
+                  <div class="started pull-right">
+                    <a>Started</a>
+                  </div>
+                </div> <!-- question-text -->
+              </div> <!-- question-summary -->
+
+
+              <div class="question-summary pull-left">
+                <div class="question-stats pull-left">
+                  <div class="pull-left q-votes">
+                    <div class="mini-counts">
+                      <span title="0 votes">0</span>
+                    </div>
+                    <div>votes</div>
+                  </div>
+                  <div class="pull-left q-answers">
+                    <div class="mini-counts">
+                      <span title="0 answers">0</span>
+                    </div>
+                    <div>answers</div>
+                  </div>
+                  <div class="pull-left q-views">
+                    <div class="mini-counts">
+                      <span title="0 views">0</span>
+                    </div>
+                    <div>views</div>
+                  </div>
+                </div> <!-- questions-stats -->
+
+
+                <div class="question-text pull-left">
+                  <h4>Título Pregunta</h4>
+                  <div class="btn-group tags pull-left">
+                    <button type="button" class="btn btn-xs">Tag1</button>
+                    <button type="button" class="btn btn-xs">Tag2</button>
+                    <button type="button" class="btn btn-xs">Tag3</button>
+                    <button type="button" class="btn btn-xs">Tag4</button>
+                  </div>
+                  <div class="started pull-right">
+                    <a>Started</a>
+                  </div>
+                </div> <!-- question-text -->
+              </div> <!-- question-summary -->
+
+
+              <div class="question-summary pull-left">
+                <div class="question-stats pull-left">
+                  <div class="pull-left q-votes">
+                    <div class="mini-counts">
+                      <span title="0 votes">0</span>
+                    </div>
+                    <div>votes</div>
+                  </div>
+                  <div class="pull-left q-answers">
+                    <div class="mini-counts">
+                      <span title="0 answers">0</span>
+                    </div>
+                    <div>answers</div>
+                  </div>
+                  <div class="pull-left q-views">
+                    <div class="mini-counts">
+                      <span title="0 views">0</span>
+                    </div>
+                    <div>views</div>
+                  </div>
+                </div> <!-- questions-stats -->
+
+
+                <div class="question-text pull-left">
+                  <h4>Título Pregunta</h4>
+                  <div class="btn-group tags pull-left">
+                    <button type="button" class="btn btn-xs">Tag1</button>
+                    <button type="button" class="btn btn-xs">Tag2</button>
+                    <button type="button" class="btn btn-xs">Tag3</button>
+                    <button type="button" class="btn btn-xs">Tag4</button>
+                  </div>
+                  <div class="started pull-right">
+                    <a>Started</a>
+                  </div>
+                </div> <!-- question-text -->
+              </div> <!-- question-summary -->
+
+
+            </div> <!-- panel-body -->
+          </div> <!-- PANEL IZQUIERDA(Preguntas) -->
+        </div>
+
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title">Última Actividad</h1>
+            </div>
+            <div class="panel panel-body">
+
+              <div class="activity-summary pull-left">
+                <div class="activity-stats pull-left">
+                  <div class="pull-left a-type">
+                    <div class="mini-counts">
+                      <span title="type">t</span>
+                    </div>
+                    <div>votes</div>
+                  </div>
+                  <div class="pull-left a-votes">
+                    <div class="mini-counts">
+                      <span title="0 votes">0</span>
+                    </div>
+                    <div>answers</div>
+                  </div>
+                  <div class="pull-left a-views">
+                    <div class="mini-counts">
+                      <span title="0 views">0</span>
+                    </div>
+                    <div>views</div>
+                  </div>
+                </div> <!-- activity-stats -->
+
+
+                <div class="activity-text pull-left">
+                  <h4>Título Pregunta</h4>
+                  <div class="btn-group tags pull-left">
+                    <button type="button" class="btn btn-xs">Tag1</button>
+                    <button type="button" class="btn btn-xs">Tag2</button>
+                    <button type="button" class="btn btn-xs">Tag3</button>
+                    <button type="button" class="btn btn-xs">Tag4</button>
+                  </div>
+                  <div class="started pull-right">
+                    <a>Started</a>
+                  </div>
+                </div> <!-- activity-text -->
+              </div> <!-- activity-summary -->
+
+            </div> <!-- panel-body -->
+          </div> <!-- PANEL DERECHA(Actividad) -->
+        </div>
+        
+
+      </div>
 </div>
+
 <%@ include file="../fragments/footer.jspf" %>
