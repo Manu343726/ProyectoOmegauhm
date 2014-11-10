@@ -180,7 +180,7 @@
                     <div class="mini-counts">
                       <span title="type">t</span>
                     </div>
-                    <div>votes</div>
+                    <div>type</div>
                   </div>
                   <div class="pull-left a-votes">
                     <div class="mini-counts">
