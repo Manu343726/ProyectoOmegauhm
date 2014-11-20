@@ -24,7 +24,8 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
 
     @Override
     public void initialize(ConfigurableWebApplicationContext ctx) {
-    	/*try {
+    	
+    	try {
     		props.load(getClass().getResourceAsStream("/app.properties")); 
     		baseFolder = new File(props.getProperty("base"));
         	log.info("base folder is {}", baseFolder.getAbsolutePath());
@@ -42,7 +43,8 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     		log.error("Could not read properties file! No base folder!", ioe);
     	}
     	
-    	log.info("read {} properties", props.size());*/
+    	log.info("read {} properties", props.size());
+    	
     }
     
     public static String getProperty(String key) {

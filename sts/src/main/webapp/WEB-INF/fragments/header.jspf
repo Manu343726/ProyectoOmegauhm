@@ -38,16 +38,12 @@
           		<c:choose>
           			<c:when test="${not empty user}">
           				Hola,
-          				<a href="user?u=${user.id}">${user.id}</a> !
-          				<c:choose>
-          				<c:when test="${user.id == 'manuel'}">
-          					<a href="admin">Review</a>
-          				</c:when>
-          			</c:choose>
+          				<a href="user?u=${user.id}">${user.login}</a> !
 						( <a href="logout">Salir</a> )
           			</c:when>
           			<c:otherwise>
           				<a href="signin">Sign in</a>
+          				
           			</c:otherwise>
           		</c:choose>
           </div>
