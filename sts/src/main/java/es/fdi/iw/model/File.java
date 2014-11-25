@@ -1,43 +1,41 @@
 package es.fdi.iw.model;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="postById",
+    @NamedQuery(name="FileById",
         query="select u from User u where u.login = :loginParam") //CAMBIAR
 })
-public class Post {	
+public class File {
+	
 	private long id;
-	private String text;
+	private String Name;
+	private String route;
 	private User owner;
 	private int upVotes;
 	private int downVotes;
 	private Date date;
+	private String subject;
 
-	public Post() {}
+	public File() {
+	}
 	
-	public static Post createPost(String text, User owner) {
-		Post p = new Post();
-		p.text = text;
-		p.owner = owner; // Ojo que aqui no comprobamos si el usuario está en la 
-		return p;
+	public static File createPost(String text, User owner) {
+		File f = new File();
+		f.Name = text;
+		f.owner = owner; // Ojo que aqui no comprobamos si el usuario está en la bd
+	
+		return f;
 	}
 
+	
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -48,14 +46,6 @@ public class Post {
 		this.id = id;
 	}
 
-	public String getText() {
-		return this.text;
-	}
-	
-	public void setText(String text) {
-		this.text = text;
-	}
-	
 	public User getOwner() {
 		return this.owner;
 	}
@@ -81,14 +71,40 @@ public class Post {
 	}
 
 	public void setDate(Date d){
-		
-	this.date=d;
+		this.date=d;
 	}
 	
 	public Date getDate(){
-		
 		return this.date;
 	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+
+
+
 	// CAMBIAR APARTIR DE AQUIIIIIIIIIIIII !!!!!!!!!!!!!!
 	/////////////////////////////////////////////////////
 	
