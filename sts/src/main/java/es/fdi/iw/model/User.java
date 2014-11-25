@@ -26,7 +26,7 @@ public class User {
 	private String role;
 	private String hashedAndSalted;
 	private String salt;
-	private List<Book> ownedBooks;
+	//private List<Post> ownedPosts;
 
 	public User() {}
 
@@ -141,15 +141,17 @@ public class User {
 		this.salt = salt;
 	}
 
-	@OneToMany(targetEntity=Book.class)
+	/*
+	@OneToMany(targetEntity=Post.class)
 	@JoinColumn(name="owner_id") // <-- this avoids creating an extra User_Book table
-	public List<Book> getOwnedBooks() {
-		return ownedBooks;
+	public List<Post> getOwnedPost() {
+		return ownedPosts;
 	}
 
-	public void setOwnedBooks(List<Book> ownedBooks) {
-		this.ownedBooks = ownedBooks;
+	public void setOwnedPost(List<Post> ownedPosts) {
+		this.ownedPosts = ownedPosts;
 	}
+	*/
 
 	public String getRole() {
 		return role;

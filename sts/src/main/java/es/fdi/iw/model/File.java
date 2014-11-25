@@ -1,10 +1,11 @@
 package es.fdi.iw.model;
-//pene
+
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -46,6 +47,7 @@ public class File {
 		this.id = id;
 	}
 
+	@ManyToOne(targetEntity=User.class)
 	public User getOwner() {
 		return this.owner;
 	}
