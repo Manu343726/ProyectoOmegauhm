@@ -26,30 +26,22 @@
 <%@ include file="../fragments/header.jspf" %>
 
 <div class="container">
+
   		<div class="row">
     		<div class="form col-md-8 col-md-offset-2">
-    	
-    			<div class="row">
-    				<textarea class="form-control" rows="1">Titulo</textarea>
-    			</div>
-    			<br>
-    	
-    			<div class="row">
-    				<textarea class="form-control" rows="5">Contenido</textarea>
-    			</div>
-    			<br>
-    	
-    			<div class="row">
-    				<textarea class="form-control" rows="1">Tags</textarea>
-    			</div>
-    			<br>
+    		
+    			<form role="form" action="newpost" id="formularioNewPost" method="POST">
+	    			<h2 class="form-heading">Haz tu pregunta</h2>
+	    			<input type="text" class="form-control" placeholder="Título" id="title" name="title" required autofocus><br>
+	    			<textarea type="text" class="form-control" rows="5" placeholder="Texto" id="text" name="text" required></textarea><br>
+	    			<input type="text" class="form-control" placeholder="Tags" id="tags" name="tags" required><br>
+	    			<button class="btn btn-info pull-right" name="submit" value="newpost" type="submit">Enviar</button>
+    			</form>
     			
-    			<div class="row">
-    				<button type="button" class="btn btn-info col-md-1 col-md-offset-10">Enviar</button>
-    			</div>
     		</div>
   			
   		</div>
+  		
 </div>
 
 <%@ include file="../fragments/footer.jspf" %>

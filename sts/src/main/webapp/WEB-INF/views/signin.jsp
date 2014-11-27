@@ -32,10 +32,6 @@
         <button class="btn btn-lg btn-primary btn-block" name="submit" value="login" type="submit">Sign in</button>
       </form>
       
-      
-      
-
-
 </div>
 
 <%@ include file="../fragments/footer.jspf" %>

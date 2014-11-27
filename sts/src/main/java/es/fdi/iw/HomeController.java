@@ -89,6 +89,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/newpost", method = RequestMethod.POST)
+	public String newpost(HttpServletRequest request, Model model, HttpSession session) {
+		String formText = request.getParameter("text");
+		logger.info(formText);
+		return "forum";
+	}
+	
+	
+	
 	/**
 	 * Logout (also returns to home view).
 	 */
