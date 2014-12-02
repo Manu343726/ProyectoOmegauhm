@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
 
 /**
@@ -88,15 +89,6 @@ public class HomeController {
 		//return "redirect:" + formSource;
 		return "home";
 	}
-	
-	@RequestMapping(value = "/newpost", method = RequestMethod.POST)
-	public String newpost(HttpServletRequest request, Model model, HttpSession session) {
-		String formText = request.getParameter("text");
-		logger.info(formText);
-		return "forum";
-	}
-	
-	
 	
 	/**
 	 * Logout (also returns to home view).
@@ -261,6 +253,31 @@ public class HomeController {
 	@RequestMapping(value = "/resources/leeme", method = RequestMethod.GET)
 	public String leeme(Locale locale, Model model) {
 		return "LEEME";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/newpost", method = RequestMethod.POST)
+	public String newpost(HttpServletRequest request, Model model, HttpSession session) {
+		String formText = request.getParameter("text");
+		logger.info(formText);
+		
+		User user = (User)session.getAttribute("user");
+		
+		logger.info("Usuario {}", user.toString());
+		
+		Post post = Post.createPost(formText, user);
+		entityManager.persist(post);
+		
+		/*try {
+			post = (Post)entityManager.createNamedQuery("postByOwner")
+					.setParameter("ownerParam", user).getSingleResult();
+			
+			logger.info("Post {}", post.toString());
+		}catch (NoResultException nre) {
+			logger.info("No encuentro el post");
+		}*/
+		
+		return "forum";
 	}
 	
 }

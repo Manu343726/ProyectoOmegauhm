@@ -7,9 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="postByOwner",
+        query="select p from Post p where p.owner = :ownerParam")
+})
 public class Post {
 	private long id;
 	private String text;
@@ -17,7 +23,19 @@ public class Post {
 	private int downVotes;
 	private Date date;
 	private User owner;
-
+	
+	public Post() {}
+	
+	public static Post createPost(String text, User owner) {
+		Post p = new Post();
+		p.text = text;
+		p.owner = owner;
+		p.upVotes = 0;
+		p.downVotes = 0;
+		
+		return p;
+	}
+	
 	@Id
 	@GeneratedValue
 	public long getId() {
