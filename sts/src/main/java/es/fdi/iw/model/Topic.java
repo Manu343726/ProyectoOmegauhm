@@ -11,10 +11,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Hilo {
+public class Topic {
 	private long id;
+	private String title;
 	
-	public Hilo() {}
+	public Topic() {}
+	
+	public static Topic createTopic(String title) {
+		Topic t = new Topic();
+		t.title = title;
+		
+		return t;
+	}
 	
 	@Id
 	@GeneratedValue
@@ -24,5 +32,13 @@ public class Hilo {
 	
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

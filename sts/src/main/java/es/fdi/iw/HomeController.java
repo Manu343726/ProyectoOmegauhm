@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.fdi.iw.model.Hilo;
+import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
 
@@ -221,6 +221,10 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/forum", method = RequestMethod.GET)
 	public String forum(Locale locale, Model model) {
+		logger.info("ENTRANDO AL FORO");
+		List<Topic> ts = entityManager.createQuery("select t from Topic t").getResultList();
+		System.err.println(ts.size());
+		model.addAttribute("threads", ts);
 		return "forum";
 	}
 	
@@ -260,18 +264,19 @@ public class HomeController {
 	@RequestMapping(value = "/newpost", method = RequestMethod.POST)
 	public String newpost(HttpServletRequest request, Model model, HttpSession session) {
 		String formText = request.getParameter("text");
+		String formTitle = request.getParameter("title");
+		logger.info(formTitle);
 		logger.info(formText);
 		
 		User user = (User)session.getAttribute("user");
 		
 		logger.info("Usuario {}", user.toString());
 		
-		Hilo thread = new Hilo();
-		entityManager.persist(thread);
+		Topic topic = Topic.createTopic(formTitle);
+		entityManager.persist(topic);
 		
-		Post post = Post.createPost(formText, user, thread);
+		Post post = Post.createPost(formText, user, topic);
 		entityManager.persist(post);
-		session.setAttribute("post", post);
 		
 		/*try {
 			post = (Post)entityManager.createNamedQuery("postByOwner")

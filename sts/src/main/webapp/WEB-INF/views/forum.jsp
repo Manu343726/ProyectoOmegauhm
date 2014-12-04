@@ -46,18 +46,15 @@
         <div id="forum-tab-content" class="tab-content">
           <div class="tab-pane active" id="new-questions">
             
-            <c:choose>
-            	<c:when test="${not empty post}">
-            		<h1>${post.text}</h1>
-            	</c:when>
-            	<c:otherwise>
-            		<h1>New Questions</h1>
-            	</c:otherwise>
-            </c:choose>
+            <c:forEach items="${threads}" var="t">
+				<h4>${t.title}</h4>
+			</c:forEach>
             
           </div>
           <div class="tab-pane" id="top-questions">
+          
             <h1>Top Questions</h1>
+            
           </div>
 
         </div> <!-- forum-tab-content -->

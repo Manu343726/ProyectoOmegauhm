@@ -22,11 +22,11 @@ public class Post {
 	private int downVotes;
 	private Date date;
 	private User owner;
-	private Hilo thread;
+	private Topic thread;
 	
 	public Post() {}
 	
-	public static Post createPost(String text, User owner, Hilo thread) {
+	public static Post createPost(String text, User owner, Topic thread) {
 		Post p = new Post();
 		p.text = text;
 		p.owner = owner;
@@ -56,12 +56,12 @@ public class Post {
 		this.owner = owner;
 	}
 	
-	@ManyToOne(targetEntity=Hilo.class)
-	public Hilo getThread() {
+	@ManyToOne(targetEntity=Topic.class)
+	public Topic getThread() {
 		return thread;
 	}
 	
-	public void setThread(Hilo thread) {
+	public void setThread(Topic thread) {
 		this.thread = thread;
 	}
 
