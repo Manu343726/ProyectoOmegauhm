@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.fdi.iw.model.Hilo;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
 
@@ -265,8 +266,12 @@ public class HomeController {
 		
 		logger.info("Usuario {}", user.toString());
 		
-		Post post = Post.createPost(formText, user);
+		Hilo thread = new Hilo();
+		entityManager.persist(thread);
+		
+		Post post = Post.createPost(formText, user, thread);
 		entityManager.persist(post);
+		session.setAttribute("post", post);
 		
 		/*try {
 			post = (Post)entityManager.createNamedQuery("postByOwner")

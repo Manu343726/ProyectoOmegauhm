@@ -1,7 +1,6 @@
 package es.fdi.iw.model;
 
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,13 +22,15 @@ public class Post {
 	private int downVotes;
 	private Date date;
 	private User owner;
+	private Hilo thread;
 	
 	public Post() {}
 	
-	public static Post createPost(String text, User owner) {
+	public static Post createPost(String text, User owner, Hilo thread) {
 		Post p = new Post();
 		p.text = text;
 		p.owner = owner;
+		p.thread = thread;
 		p.upVotes = 0;
 		p.downVotes = 0;
 		
@@ -53,6 +54,15 @@ public class Post {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	
+	@ManyToOne(targetEntity=Hilo.class)
+	public Hilo getThread() {
+		return thread;
+	}
+	
+	public void setThread(Hilo thread) {
+		this.thread = thread;
 	}
 
 	public String getText() {

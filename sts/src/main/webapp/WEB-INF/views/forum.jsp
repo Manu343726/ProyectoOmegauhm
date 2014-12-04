@@ -45,7 +45,16 @@
 
         <div id="forum-tab-content" class="tab-content">
           <div class="tab-pane active" id="new-questions">
-            <h1>New Questions</h1>
+            
+            <c:choose>
+            	<c:when test="${not empty post}">
+            		<h1>${post.text}</h1>
+            	</c:when>
+            	<c:otherwise>
+            		<h1>New Questions</h1>
+            	</c:otherwise>
+            </c:choose>
+            
           </div>
           <div class="tab-pane" id="top-questions">
             <h1>Top Questions</h1>
