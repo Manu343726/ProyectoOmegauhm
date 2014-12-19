@@ -28,7 +28,16 @@
 <div class="container">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-4">
-					<button type="button" class="btn btn-primary btn-lg btn-block ">Sube tus apuntes</button>
+					<c:choose>
+					<c:when test="${not empty user}">
+						<a href="">
+							<button type="button" class="btn btn-primary btn-lg btn-block">Sube tus apuntes</button>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder <br> subir archivos</button>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>	
 			

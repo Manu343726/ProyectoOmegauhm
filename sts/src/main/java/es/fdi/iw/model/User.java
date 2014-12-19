@@ -26,11 +26,12 @@ public class User {
 	private String role;
 	private String hashedAndSalted;
 	private String salt;
+	private String email;
 	//private List<Post> ownedPosts;
 
 	public User() {}
 
-	public static User createUser(String login, String pass, String role) {
+	public static User createUser(String login, String pass, String role, String email) {
 		User u = new User();
 		u.login = login;
 		Random r = new Random();
@@ -159,6 +160,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String toString() {

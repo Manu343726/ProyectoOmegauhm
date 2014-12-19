@@ -8,8 +8,10 @@
 
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,6 +24,17 @@
     <link href="resources/css/extra.css" rel="stylesheet">
     <link href="resources/css/forum.css" rel="stylesheet">
 
+
+
+	
+	
+	<script type="text/javascript">
+          $(document).ready(function () {
+              $('#tabs').tab();
+          });
+    </script>
+	
+	
   </head>
 <body>
 
@@ -29,11 +42,20 @@
 
 <div class="container">
 	  <div class="row">
-				<div class="col-md-4 col-md-offset-4">
-					<a href="publication">
-						<button type="button" class="btn btn-primary btn-lg btn-block ">Haz una pregunta</button>
-					</a>
-				</div>
+			<div class="col-md-4 col-md-offset-4">
+			
+				<c:choose>
+					<c:when test="${not empty user}">
+						<a href="publication">
+							<button type="button" class="btn btn-primary btn-lg btn-block">Haz una pregunta</button>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para hacer <br> una pregunta</button>
+					</c:otherwise>
+				</c:choose>
+				
+			</div>
 	  </div>
 	  <br>
       <div id="forum-content">
@@ -60,13 +82,6 @@
         </div> <!-- forum-tab-content -->
       </div> <!-- content -->
 
-
-
-      <script type="text/javascript">
-          jQuery(document).ready(function ($) {
-              $('#tabs').tab();
-          });
-      </script>
     </div> <!-- CONTAINER -->
 
 <%@ include file="../fragments/footer.jspf" %>

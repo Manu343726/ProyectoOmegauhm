@@ -61,8 +61,8 @@ public class UserTest extends DbTest {
 	
 	@Test
 	public void testPasswordHashing() {
-		User u1 = User.createUser("abc", "def", "admin");
-		User u2 = User.createUser("xyz", "def", "admin");
+		User u1 = User.createUser("abc", "def", "admin", "admin@gmail.com");
+		User u2 = User.createUser("xyz", "def", "admin", "admin@gmail.com");
 		assertFalse("not same salt for 2 users", 
 				u1.getSalt().equals(u2.getSalt()));
 		assertFalse("therefore, not same hash for 2 users", 

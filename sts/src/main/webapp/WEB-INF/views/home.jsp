@@ -33,9 +33,8 @@
 
         <div class="col-md-12">
           <div class="jumbotron">
-            <h1>Proyecto OHM</h1>
             <p>
-              "Descripción del proyecto"
+            Hay tres usuarios para hacer login: user, admin y test. La contraseña es la misma para los tres: hola
             </p>
           </div> <!-- jumbotron -->
         </div>
