@@ -46,122 +46,12 @@
               <h1 class="panel-title">Últimas Preguntas</h1>
             </div>
             <div class="panel panel-body">
-
-
-              <div class="question-summary pull-left">
-                <div class="question-stats pull-left">
-                  <div class="pull-left q-votes">
-                    <div class="mini-counts">
-                      <span title="0 votes">0</span>
-                    </div>
-                    <div>votes</div>
-                  </div>
-                  <div class="pull-left q-answers">
-                    <div class="mini-counts">
-                      <span title="0 answers">0</span>
-                    </div>
-                    <div>answers</div>
-                  </div>
-                  <div class="pull-left q-views">
-                    <div class="mini-counts">
-                      <span title="0 views">0</span>
-                    </div>
-                    <div>views</div>
-                  </div>
-                </div> <!-- questions-stats -->
-
-
-                <div class="question-text pull-left">
-                  <h4>Título Pregunta</h4>
-                  <div class="btn-group tags pull-left">
-                    <button type="button" class="btn btn-xs">Tag1</button>
-                    <button type="button" class="btn btn-xs">Tag2</button>
-                    <button type="button" class="btn btn-xs">Tag3</button>
-                    <button type="button" class="btn btn-xs">Tag4</button>
-                  </div>
-                  <div class="started pull-right">
-                    <a>Started</a>
-                  </div>
-                </div> <!-- question-text -->
-              </div> <!-- question-summary -->
-
-
-              <div class="question-summary pull-left">
-                <div class="question-stats pull-left">
-                  <div class="pull-left q-votes">
-                    <div class="mini-counts">
-                      <span title="0 votes">0</span>
-                    </div>
-                    <div>votes</div>
-                  </div>
-                  <div class="pull-left q-answers">
-                    <div class="mini-counts">
-                      <span title="0 answers">0</span>
-                    </div>
-                    <div>answers</div>
-                  </div>
-                  <div class="pull-left q-views">
-                    <div class="mini-counts">
-                      <span title="0 views">0</span>
-                    </div>
-                    <div>views</div>
-                  </div>
-                </div> <!-- questions-stats -->
-
-
-                <div class="question-text pull-left">
-                  <h4>Título Pregunta</h4>
-                  <div class="btn-group tags pull-left">
-                    <button type="button" class="btn btn-xs">Tag1</button>
-                    <button type="button" class="btn btn-xs">Tag2</button>
-                    <button type="button" class="btn btn-xs">Tag3</button>
-                    <button type="button" class="btn btn-xs">Tag4</button>
-                  </div>
-                  <div class="started pull-right">
-                    <a>Started</a>
-                  </div>
-                </div> <!-- question-text -->
-              </div> <!-- question-summary -->
-
-
-              <div class="question-summary pull-left">
-                <div class="question-stats pull-left">
-                  <div class="pull-left q-votes">
-                    <div class="mini-counts">
-                      <span title="0 votes">0</span>
-                    </div>
-                    <div>votes</div>
-                  </div>
-                  <div class="pull-left q-answers">
-                    <div class="mini-counts">
-                      <span title="0 answers">0</span>
-                    </div>
-                    <div>answers</div>
-                  </div>
-                  <div class="pull-left q-views">
-                    <div class="mini-counts">
-                      <span title="0 views">0</span>
-                    </div>
-                    <div>views</div>
-                  </div>
-                </div> <!-- questions-stats -->
-
-
-                <div class="question-text pull-left">
-                  <h4>Título Pregunta</h4>
-                  <div class="btn-group tags pull-left">
-                    <button type="button" class="btn btn-xs">Tag1</button>
-                    <button type="button" class="btn btn-xs">Tag2</button>
-                    <button type="button" class="btn btn-xs">Tag3</button>
-                    <button type="button" class="btn btn-xs">Tag4</button>
-                  </div>
-                  <div class="started pull-right">
-                    <a>Started</a>
-                  </div>
-                </div> <!-- question-text -->
-              </div> <!-- question-summary -->
-
-
+				<c:forEach items="${threads}" var="t">
+					<jsp:include page="../fragments/question-summary.jsp">
+				    	<jsp:param name="title"   value="${t.title}"/>
+				    	<jsp:param name="tags"   value="${t.tags}"/>
+				    </jsp:include>
+				</c:forEach>
             </div> <!-- panel-body -->
           </div> <!-- PANEL IZQUIERDA(Preguntas) -->
         </div>
