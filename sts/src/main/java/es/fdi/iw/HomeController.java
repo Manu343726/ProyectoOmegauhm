@@ -308,11 +308,11 @@ public class HomeController {
 		
 		logger.info("Usuario {}", user.toString());
 		
-		Topic topic = Topic.createTopic(formTitle, formTags);
-		entityManager.persist(topic);
-		
-		Post post = Post.createPost(formText, user, topic);
+		Post post = Post.createPost(formText, user);
 		entityManager.persist(post);
+		
+		Topic topic = Topic.createTopic(formTitle, post, formTags);
+		entityManager.persist(topic);
 
 		return "forum";
 	}

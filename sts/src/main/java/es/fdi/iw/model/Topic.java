@@ -3,6 +3,8 @@ package es.fdi.iw.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,20 +14,38 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 
 @Entity
 public class Topic {
+	static class NoQuestionOnTopicException extends Exception
+	{
+		public NoQuestionOnTopicException() {
+			super("No question post on this thread");
+		}
+	}
+	
 	private long id;
 	private String title;
 	private String tags;
+	private Post question;
+	private List<Post> answers;
+	
+	private int answersCount;
 	
 	public Topic() {}
 	
-	public static Topic createTopic(String title, String tags) {
+	public static Topic createTopic(String title, Post question, String tags) {
 		Topic t = new Topic();
 		t.title = title;
+		t.question = question;
 		t.tags = tags;
+		t.answers = new ArrayList<Post>();
+		t.answersCount = 0;
+		
+		question.setThread(t);
 		
 		return t;
 	}
@@ -56,5 +76,42 @@ public class Topic {
 	public String getTags()
 	{
 		return tags;
+	}
+	
+	@OneToMany(targetEntity=Post.class,
+			   mappedBy="thread")//La relación pertenece al post
+	public List<Post> getAnswers()
+	{
+		return answers;
+	}
+	
+	public void setAnswers(List<Post> posts)
+	{
+		this.answers = posts;
+	}
+	
+	@OneToOne
+	public Post getQuestion()
+	{
+		return question;
+	}
+	
+	public void setQuestion(Post question)
+	{
+		this.question = question;
+	}
+	
+	public void addAnswer(User user, String answer)
+	{
+		Post post = Post.createPost(answer, user);
+		post.setThread(this);
+		answers.add(post);
+		answersCount++;
+	}
+	
+	@Transient
+	public int getAnswerscount()
+	{
+		return answersCount;
 	}
 }

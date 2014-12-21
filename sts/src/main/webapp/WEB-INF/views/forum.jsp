@@ -82,6 +82,8 @@
 								<jsp:include page="../fragments/question-summary.jsp">
 									<jsp:param name="title" value="${t.title}" />
 									<jsp:param name="tags" value="${t.tags}" />
+									<jsp:param name="votes" value="${t.question.votes}" />
+									<jsp:param name="answers" value="${t.answerscount}" />
 								</jsp:include>
 							</c:forEach>
 						</div>
