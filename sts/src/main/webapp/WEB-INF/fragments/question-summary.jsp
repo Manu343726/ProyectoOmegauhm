@@ -2,19 +2,19 @@
 	<div class="question-stats pull-left">
 		<div class="pull-left q-votes">
 			<div class="mini-counts">
-				<span title="0 votes">0</span>
+				<span title="votes">${param.votes}</span>
 			</div>
 			<div>votes</div>
 		</div>
 		<div class="pull-left q-answers">
 			<div class="mini-counts">
-				<span title="0 answers">0</span>
+				<span title="answers">${param.answers}</span>
 			</div>
 			<div>answers</div>
 		</div>
 		<div class="pull-left q-views">
 			<div class="mini-counts">
-				<span title="0} views">0</span>
+				<span title="views">${param.views}</span>
 			</div>
 			<div>views</div>
 		</div>
