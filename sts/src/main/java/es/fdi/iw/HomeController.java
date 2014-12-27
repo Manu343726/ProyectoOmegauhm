@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -315,6 +316,24 @@ public class HomeController {
 		entityManager.persist(topic);
 
 		return "forum";
+	}
+	
+	/**
+	 * Displays user details
+	 */
+	@Transactional
+	@RequestMapping(value = "/topic/{id}/{title}", method = RequestMethod.GET)
+	public String topic(@PathVariable("id") long id, @PathVariable("title") String title, HttpSession session, HttpServletRequest request) {		
+		Topic topic = (Topic)entityManager.createNamedQuery("topicById")
+		 								  .setParameter("idParam", id).getSingleResult();
+		
+		session.setAttribute("topic", topic);
+		
+		//Workaround to hibernate lazy initialization issue
+		session.setAttribute("topic_question", topic.getQuestion());
+		session.setAttribute("topic_amswers", topic.getAnswers());
+		
+		return "topic";
 	}
 	
 }

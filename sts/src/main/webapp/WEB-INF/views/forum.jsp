@@ -81,6 +81,7 @@
 							<c:forEach items="${threads}" var="t">
 								<jsp:include page="../fragments/question-summary.jsp">
 									<jsp:param name="title" value="${t.title}" />
+									<jsp:param name="id" value="{t.id}"/>
 									<jsp:param name="tags" value="${t.tags}" />
 									<jsp:param name="votes" value="${t.question.votes}" />
 									<jsp:param name="answers" value="${t.answerscount}" />

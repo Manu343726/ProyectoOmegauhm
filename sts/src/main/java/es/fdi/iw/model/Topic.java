@@ -19,6 +19,10 @@ import javax.persistence.Transient;
 import javax.transaction.Transactional;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="topicById",
+        query="select t from Topic t where t.id = :idParam")
+})
 public class Topic {
 	static class NoQuestionOnTopicException extends Exception
 	{

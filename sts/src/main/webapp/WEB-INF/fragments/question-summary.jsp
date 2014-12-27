@@ -22,7 +22,9 @@
 	<!-- questions-stats -->
 
 	<div class="question-text pull-left">
-		<h4>${param.title}</h4>
+		<h4>
+			<a href="topic/${param.id}/${param.title}">${param.title}</a>
+		</h4>
 		<div class="btn-group tags pull-left">
 			<div class="thread_tags">${param.tags}</div>
 		</div>
