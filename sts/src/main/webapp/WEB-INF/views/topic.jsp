@@ -35,6 +35,7 @@
 
 	<%@ include file="../fragments/header.jspf"%>
 	
+	<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>
 	<script>
 		$("#voting_button").prop('disabled', true);
 	</script>
@@ -65,6 +66,8 @@
 				</div>
 				
 				By ${topic_asker.login}
+				
+				<div class="thread_tags">${topic.tags}</div>
 			</div>
 		</div>
 		<div class="row row-offcanvas row-offcanvas-center">
