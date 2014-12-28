@@ -15,6 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="postById",
+        query="select p from Post p where p.id = :idParam")
+})
 public class Post {
 	private long id;
 	private String text;

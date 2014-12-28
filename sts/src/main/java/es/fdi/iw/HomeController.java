@@ -319,7 +319,7 @@ public class HomeController {
 	}
 	
 	/**
-	 * Displays user details
+	 * Opens topic
 	 */
 	@Transactional
 	@RequestMapping(value = "/topic/{id}/{title}", method = RequestMethod.GET)
@@ -331,9 +331,36 @@ public class HomeController {
 		
 		//Workaround to hibernate lazy initialization issue
 		session.setAttribute("topic_question", topic.getQuestion());
-		session.setAttribute("topic_amswers", topic.getAnswers());
+		session.setAttribute("topic_answers", topic.getAnswers());
+		session.setAttribute("topic_asker", topic.getQuestion().getOwner());
 		
 		return "topic";
+	}
+	
+	@Transactional
+	String topicURI(Topic topic)
+	{
+		return "topic/" + topic.getId() + "/" + topic.getTitle();
+	}
+	
+	/**
+	 * Votes on post
+	 */
+	@Transactional
+	@RequestMapping(value = "/vote/{id}/{value}", method = RequestMethod.GET)
+	public String vote(@PathVariable("id") long id, @PathVariable("value") int value, HttpSession session, HttpServletRequest request) {		
+		Post post = (Post)entityManager.createNamedQuery("postById")
+		 							   .setParameter("idParam", id).getSingleResult();
+		
+		if(!this.isLogged(session))
+			return "401"; //go fuck yourself
+		
+		if(value >= 0)
+			post.setUpVotes(post.getUpVotes() + value);
+		else
+			post.setDownVotes(post.getDownVotes() - value);
+		
+		return "redirect:/" + topicURI(post.getThread());
 	}
 	
 }

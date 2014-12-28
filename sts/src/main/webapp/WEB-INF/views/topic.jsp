@@ -7,7 +7,9 @@
 <title>Proyecto OHM</title>
 
 <!-- Bootstrap -->
-<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -19,33 +21,62 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-<link href="${pageContext.request.contextPath}/resources/css/questions.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/activities.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/extra.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/questions.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/activities.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/extra.css"
+	rel="stylesheet">
 
 </head>
 <body>
 
 	<%@ include file="../fragments/header.jspf"%>
+	
+	<script>
+		$("#voting_button").prop('disabled', true);
+	</script>
 
 	<div class="container">
-	
-	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h1 class="panel-title">${topic.title}</h1>
-					
-					${topic_question.text}
-				</div>
+		<div class="jumbotron">
+			<h1>${topic.title}</h1>
 
-				<c:forEach items="${topic_answers}" var="answer">
-					<div class="panel panel-body">
-						${answer.text}
+			<div class="row">
+				<div class="col-md-1">
+					<div class="row">
+						<a href="${pageContext.request.contextPath}/vote/${topic_question.id}/1">
+							<button type="button" class="btn btn-default btn-sl" id="voting_button">
+								<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+							</button>
+						</a>
 					</div>
-				</c:forEach>
+					<div class="row">
+						<a href="${pageContext.request.contextPath}/vote/${topic_question.id}/-1">
+							<button type="button" class="btn btn-default btn-sl" id="voting_button">
+								<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+							</button>
+						</a>
+					</div>
+					<div class="row">
+						<span class="label label-default">${topic_question.votes} points</span>
+					</div>
+				</div>
+				
+				By ${topic_asker.login}
 			</div>
 		</div>
+		<div class="row row-offcanvas row-offcanvas-center">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h1 class="panel-title">${topic.title}</h1>
+
+						${topic_question.text}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
