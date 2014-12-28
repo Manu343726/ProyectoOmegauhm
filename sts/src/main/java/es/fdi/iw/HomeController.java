@@ -78,7 +78,7 @@ public class HomeController {
 			logger.info("no-such-user with login {}", formLogin);
 		}
 		
-		return "home";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/joinUser", method = RequestMethod.POST)
@@ -103,7 +103,7 @@ public class HomeController {
 			session.setAttribute("user", user);
 		}
 		
-		return "home";
+		return "redirect:/";
 	}
 	
 	/**
@@ -280,7 +280,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/publication", method = RequestMethod.GET)
 	public String publication(Locale locale, Model model, HttpSession session) {
-			if(session.getAttribute("user") != null)
+			if(isLogged(session))
 				return "publication";
 			else 
 				return "redirect:/";
@@ -315,7 +315,7 @@ public class HomeController {
 		Topic topic = Topic.createTopic(formTitle, post, formTags);
 		entityManager.persist(topic);
 
-		return "forum";
+		return "redirect:/forum";
 	}
 	
 	/**
