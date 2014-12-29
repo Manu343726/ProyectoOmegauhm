@@ -80,53 +80,8 @@
 		</div>
 		<div class="row row-offcanvas row-offcanvas-center">
 			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h1 class="panel-title">${topic.title}</h1>
-					</div>
-					<div class="panel panel-body">${topic_question.text}</div>
-				</div>
-
-				<c:forEach items="${topic_answers}" var="answer">
-					<div class="panel panel-default">
-						<div class="panel panel-body" id=${answer.uri}> <!-- anchor to answer -->
-							<div class="row">
-								${answer.text}
-							</div>
-							<div class="row">
-								<div class="col-md-1">
-									<div class="row">
-										<a
-											href="${pageContext.request.contextPath}/vote/${answer.id}/1">
-											<button type="button" class="btn btn-default btn-sl"
-												id="voting_button">
-												<span class="glyphicon glyphicon-chevron-up"
-													aria-hidden="true"></span>
-											</button>
-										</a>
-									</div>
-									<div class="row">
-										<a
-											href="${pageContext.request.contextPath}/vote/${answer.id}/-1">
-											<button type="button" class="btn btn-default btn-sl"
-												id="voting_button">
-												<span class="glyphicon glyphicon-chevron-down"
-													aria-hidden="true"></span>
-											</button>
-										</a>
-									</div>
-									<div class="row">
-										<span class="label label-default">${answer.votes}
-											points</span>
-									</div>
-								</div>
-
-								By ${answer.owner.login}
-							</div>
-						</div>
-
-
-					</div>
+				<c:forEach items="${topic_answers}" var="post">
+					<%@ include file="../fragments/post_view.jspf"%>
 				</c:forEach>
 			</div>
 		</div>

@@ -45,6 +45,7 @@ public class Topic {
 		Topic t = new Topic();
 		t.title = title;
 		t.question = question;
+		t.question.setType(PostType.QUESTION);
 		t.tags = tags;
 		t.answers = new ArrayList<Post>();
 		t.answersCount = 0;
@@ -109,6 +110,7 @@ public class Topic {
 	{
 		Post post = Post.createPost(answer, user);
 		post.setThread(this);
+		post.setType(PostType.ANSWER);
 		answers.add(post);
 		answersCount++;
 	}

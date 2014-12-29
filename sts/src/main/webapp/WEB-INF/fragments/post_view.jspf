@@ -1,0 +1,41 @@
+<!-- Se supone que hay una variable "post" y "topic" en la sesión (Directamente de la sessión o de un foreach) -->
+
+<div class="panel panel-default">
+	<div class="panel panel-body" id=${post.uri}>
+		<!-- anchor to answer -->
+
+		<div class="row">
+			<div class="col-md-1">
+				<div class="row">
+					<a href="${pageContext.request.contextPath}/vote/${post.id}/1">
+						<button type="button" class="btn btn-default btn-sl"
+							id="voting_button">
+							<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+						</button>
+					</a>
+				</div>
+				<div class="row">
+					<a href="${pageContext.request.contextPath}/vote/${post.id}/-1">
+						<button type="button" class="btn btn-default btn-sl"
+							id="voting_button">
+							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+						</button>
+					</a>
+				</div>
+				<div class="row">
+					<span class="label label-default">${post.votes} points</span>
+				</div>
+			</div>
+
+			<div class="row">${post.text}</div>
+
+			<c:if test="${post.type == 'QUESTION'}">
+				<div class="btn-group tags pull-left">
+					<div class="thread_tags">${topic.tags}</div>
+				</div>
+			</c:if>
+
+			By ${post.owner.login}
+		</div>
+	</div>
+</div>
