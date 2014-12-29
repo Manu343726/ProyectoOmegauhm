@@ -113,4 +113,10 @@ public class Post {
 	{
 		this.type = type;
 	}
+	
+	@Transient
+	public String getUri()
+	{
+		return getThread().getURI() + "/#" + getId();
+	}
 }

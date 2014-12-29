@@ -118,4 +118,10 @@ public class Topic {
 	{
 		return answersCount;
 	}
+	
+	@Transient
+	public String getURI()
+	{
+		return "topic/" + getId() + "/" + getTitle();
+	}
 }

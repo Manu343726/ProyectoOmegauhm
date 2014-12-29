@@ -334,6 +334,10 @@ public class HomeController {
 		session.setAttribute("topic_answers", topic.getAnswers());
 		session.setAttribute("topic_asker", topic.getQuestion().getOwner());
 		
+		//Some logging for logging purposes and to force lazy initialization of answers list
+		for(Post answer : topic.getAnswers())
+			logger.info("Answer [id=" + answer.getId() + ",owner=" + answer.getOwner().getLogin() + ",points=" + answer.getVotes() + "]");
+		
 		return "topic";
 	}
 	
@@ -360,7 +364,7 @@ public class HomeController {
 		else
 			post.setDownVotes(post.getDownVotes() - value);
 		
-		return "redirect:/" + topicURI(post.getThread());
+		return "redirect:/" + post.getUri();
 	}
 	
 }
