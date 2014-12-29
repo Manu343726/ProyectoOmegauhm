@@ -5,7 +5,7 @@
 		<!-- anchor to answer -->
 
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<div class="row">
 					<a href="${pageContext.request.contextPath}/vote/${post.id}/1">
 						<button type="button" class="btn btn-default btn-sl"
@@ -27,15 +27,22 @@
 				</div>
 			</div>
 
-			<div class="row">${post.text}</div>
-
-			<c:if test="${post.type == 'QUESTION'}">
-				<div class="btn-group tags pull-left">
-					<div class="thread_tags">${topic.tags}</div>
-				</div>
-			</c:if>
-
-			By ${post.owner.login}
+			<div class="row">
+				${post.text}
+			</div>
 		</div>
+		<div class="row">------------------------</div>
+		<div class="row">
+				<c:if test="${post.type == 'QUESTION'}">
+					<div class="col-md-4">
+						<div class="btn-group tags pull-left">
+							<div class="thread_tags">${topic.tags}</div>
+						</div>
+					</div>
+				</c:if>
+				<div class="col-md-2">
+					By ${post.owner.login}
+				</div>
+			</div>
 	</div>
 </div>

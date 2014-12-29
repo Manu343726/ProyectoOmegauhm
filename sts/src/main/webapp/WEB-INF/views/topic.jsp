@@ -35,49 +35,7 @@
 
 	<%@ include file="../fragments/header.jspf"%>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>
-	<script>
-		$("#voting_button").prop('disabled', true);
-	</script>
-
 	<div class="container">
-		<div class="jumbotron" id=${topic_question.id}>
-			<!-- ancla al post-pregunta -->
-			<h1>${topic.title}</h1>
-
-			<div class="row">
-				<div class="col-md-1">
-					<div class="row">
-						<a
-							href="${pageContext.request.contextPath}/vote/${topic_question.id}/1">
-							<button type="button" class="btn btn-default btn-sl"
-								id="voting_button">
-								<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-							</button>
-						</a>
-					</div>
-					<div class="row">
-						<a
-							href="${pageContext.request.contextPath}/vote/${topic_question.id}/-1">
-							<button type="button" class="btn btn-default btn-sl"
-								id="voting_button">
-								<span class="glyphicon glyphicon-chevron-down"
-									aria-hidden="true"></span>
-							</button>
-						</a>
-					</div>
-					<div class="row">
-						<span class="label label-default">${topic_question.votes}
-							points</span>
-					</div>
-				</div>
-
-				By ${topic_asker.login}
-
-				<div class="thread_tags">${topic.tags}</div>
-			</div>
-		</div>
 		<div class="row row-offcanvas row-offcanvas-center">
 			<div class="col-md-6">
 				<c:forEach items="${topic_answers}" var="post">
@@ -86,5 +44,7 @@
 			</div>
 		</div>
 	</div>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>
 
 	<%@ include file="../fragments/footer.jspf"%>

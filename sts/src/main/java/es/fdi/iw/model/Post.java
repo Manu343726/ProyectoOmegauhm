@@ -2,12 +2,14 @@ package es.fdi.iw.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,6 +23,9 @@ import javax.persistence.Transient;
 })
 public class Post {
 	private long id;
+	
+	@Lob
+	@Column(columnDefinition = "blob") //Deja de truncarme el texto cabrón NO FUNCIONA
 	private String text;
 	private int upVotes;
 	private int downVotes;
