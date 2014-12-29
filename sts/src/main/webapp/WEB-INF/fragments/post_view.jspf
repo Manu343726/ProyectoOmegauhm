@@ -1,7 +1,7 @@
 <!-- Se supone que hay una variable "post" y "topic" en la sesión (Directamente de la sessión o de un foreach) -->
 
-<div class="panel panel-default">
-	<div class="panel panel-body" id=${post.uri}>
+<div class="panel panel-default" id=${post.id}> <!-- ancla a post -->
+	<div class="panel panel-body"> 
 		<!-- anchor to answer -->
 
 		<div class="row">
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="col-md-8">
 				${post.text}
 			</div>
 		</div>

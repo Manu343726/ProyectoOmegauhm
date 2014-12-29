@@ -21,7 +21,9 @@ import javax.transaction.Transactional;
 @Entity
 @NamedQueries({
     @NamedQuery(name="topicById",
-        query="select t from Topic t where t.id = :idParam")
+        query="select t from Topic t where t.id = :idParam"),
+    @NamedQuery(name="topicByTitle",
+        query="select t from Topic t where t.title = :title")
 })
 public class Topic {
 	static class NoQuestionOnTopicException extends Exception
@@ -46,6 +48,7 @@ public class Topic {
 		t.title = title;
 		t.question = question;
 		t.question.setType(PostType.QUESTION);
+		t.question.setThread(t);
 		t.tags = tags;
 		t.answers = new ArrayList<Post>();
 		t.answersCount = 0;

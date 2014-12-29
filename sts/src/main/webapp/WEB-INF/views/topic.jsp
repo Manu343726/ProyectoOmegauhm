@@ -43,6 +43,12 @@
 				</c:forEach>
 			</div>
 		</div>
+		
+		<c:if test="${not empty user}">
+			<a href="401">
+				<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
+			</a>
+		</c:if>
 	</div>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>

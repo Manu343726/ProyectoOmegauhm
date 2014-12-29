@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import util.IWEntityManager;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
@@ -88,18 +89,19 @@ public class HomeController {
 		String formEmail = request.getParameter("email");
 		String formPass = request.getParameter("pass");
 		logger.info("Register attempt from '{}'", formLogin);
+		
+		IWEntityManager manager = new IWEntityManager(entityManager);
 			
 		
 		User u = null;
 		
 		try {
-			u = (User)entityManager.createNamedQuery("userByLogin")
-					.setParameter("loginParam", formLogin).getSingleResult();
+			u = manager.userByLogin(formLogin);
+			
 			logger.info("user {} already exists", formLogin);
 		} catch (NoResultException nre) {
 			logger.info("no-such-user; creating user {}", formLogin);
-			User user = User.createUser(formLogin, formPass, "user", formEmail);
-			entityManager.persist(user);				
+			User user = manager.newUser(formLogin, formEmail, formPass);				
 			session.setAttribute("user", user);
 		}
 		
@@ -194,6 +196,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@Transactional
 	public String empty(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -204,6 +207,26 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("pageTitle", "Bienvenido a IW");
+		
+		
+		//Mocking
+		if(entityManager.createQuery("select t from Topic t").getResultList().size() <= 0)
+		{
+			IWEntityManager manager = new IWEntityManager(entityManager);
+			
+			int threads = 10;
+			int answers_per_thread = 10;
+			
+			logger.info("Mocking up DB...");
+			
+			for(int i = 0; i < threads; ++i)
+			{
+				Topic topic = manager.newTopic("user" , "Título pregunta " + i, "Texto pregunta " + i, "tag1 tag2 tag3");
+				
+				for(int j = 0; j < answers_per_thread; ++j)
+					manager.newPost(topic, "Texto respuesta " + i + "." + j, "admin");
+			}
+		}
 		
 		this.addThreadsToSession(model);
 		
@@ -305,15 +328,14 @@ public class HomeController {
 		logger.info(formText);
 		logger.info(formTags);
 		
+		IWEntityManager manager = new IWEntityManager(entityManager);
 		User user = (User)session.getAttribute("user");
 		
-		logger.info("Usuario {}", user.toString());
+		if(user == null)
+			return "404";
 		
-		Post post = Post.createPost(formText, user);
-		entityManager.persist(post);
+		manager.newTopic(user, formTitle, formText, formTags);
 		
-		Topic topic = Topic.createTopic(formTitle, post, formTags);
-		entityManager.persist(topic);
 
 		return "redirect:/forum";
 	}

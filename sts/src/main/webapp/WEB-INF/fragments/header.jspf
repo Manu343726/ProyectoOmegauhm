@@ -40,7 +40,7 @@
           				<p class="navbar-text navbar-right">${user.login} (<a href="${pageContext.request.contextPath}/logout">Salir</a>)</p>
           			</c:when>
           			<c:otherwise>
-          				<a href="signin"><button type="button" class="btn btn-info navbar-btn">Sign in</button></a>
+          				<a href="${pageContext.request.contextPath}/signin"><button type="button" class="btn btn-info navbar-btn">Sign in</button></a>
           				<p class="navbar-text navbar-right">or  <a href="${pageContext.request.contextPath}/join">join us!</a></p>
           			</c:otherwise>
           		</c:choose>
