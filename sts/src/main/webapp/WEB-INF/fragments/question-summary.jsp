@@ -18,22 +18,23 @@
 			</div>
 			<div>views</div>
 		</div>
-	</div>
-	<!-- questions-stats -->
+	</div> <!-- question-stats -->
+	
 
 	<div class="question-text pull-left">
 		<h4>
 			<a href="topic/${param.id}/${param.title}">${param.title}</a>
 		</h4>
-		<div class="btn-group tags pull-left">
-			<div class="thread_tags">${param.tags}</div>
-		</div>
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- lib para el forTokens -->
+		<c:forTokens items="${param.tags}" delims=" " var="name">
+			<span class="label label-default">${name}</span>
+		</c:forTokens>
 		<div class="started pull-right">
 			<a>N/A</a>
 		</div>
-	</div>
-	<!-- question-text -->
-</div>
-<!-- question-summary -->
+	</div> <!-- question-text -->
+	
+</div> <!-- question-summary -->
+
 
 <script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>

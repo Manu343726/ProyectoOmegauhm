@@ -28,7 +28,7 @@
 
 
 
-
+<!-- Script para los tabs -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#tabs').tab();
@@ -40,6 +40,7 @@
 <body>
 
 	<%@ include file="../fragments/header.jspf"%>
+	
 
 	<div class="container">
 		<div class="row">
@@ -61,7 +62,7 @@
 				</c:choose>
 
 			</div>
-		</div>
+		</div> <!-- Botón de la parte superior. Si el usuario no está logueado, el botón para hacer una pregunta aparece deshabilitado -->
 		<br>
 		<div id="forum-content">
 
@@ -70,8 +71,8 @@
 						Questions</a></li>
 				<li><a href="#top-questions" data-toggle="tab">Top
 						Questions</a></li>
-			</ul>
-			<!-- forum-tab -->
+			</ul> <!-- tabs -->
+			
 
 			<div id="forum-tab-content" class="tab-content">
 				<div class="tab-pane active" id="new-questions">
