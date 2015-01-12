@@ -22,15 +22,13 @@ public class IWFileManager
 		baseDirectory = new File(basePath);
 		log.info("base directory is {}", baseDirectory.getAbsolutePath());
 		
-		if (!baseDirectory.isDirectory()) {
-    		if (baseDirectory.exists()) {
+		if (!baseDirectory.isDirectory())
+    		if (baseDirectory.exists())
     			log.error("{} exists and is not a directory -- cannot create", baseDirectory);
-    		} else if ( ! baseDirectory.mkdirs()){
+    		else if (!baseDirectory.mkdirs())
     			log.error("{} could not be created -- check permissions", baseDirectory);        			
-    		}
-    	} else {
+    	else
     		log.info("using already-existing base folder :-)");
-    	}
 	}
 	
 	public String getFilePath(es.fdi.iw.model.File file)

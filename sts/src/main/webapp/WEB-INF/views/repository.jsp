@@ -30,7 +30,7 @@
 				<div class="col-md-4 col-md-offset-4">
 					<c:choose>
 					<c:when test="${not empty user}">
-						<a href="">
+						<a href="${pageContext.request.contextPath}/file/select">
 							<button type="button" class="btn btn-primary btn-lg btn-block">Sube tus apuntes</button>
 						</a>
 					</c:when>

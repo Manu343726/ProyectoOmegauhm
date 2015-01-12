@@ -18,8 +18,6 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
 
     private static final Properties props = new Properties();
     
-    private static File baseFolder;
-    
     private static IWFileManager fileManager;
     
     public ContextInitializer() {
@@ -27,27 +25,16 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     }
 
     @Override
-    public void initialize(ConfigurableWebApplicationContext ctx) {
-    	
-    	try {
+    public void initialize(ConfigurableWebApplicationContext ctx) 
+    {
+    	try 
+    	{
     		props.load(getClass().getResourceAsStream("/app.properties")); 
     		
     		fileManager = new IWFileManager(getProperty("base"));
-    		
-    		baseFolder = new File(props.getProperty("base"));
-        	log.info("base folder is {}", baseFolder.getAbsolutePath());
-        	if (!baseFolder.isDirectory()) {
-        		if (baseFolder.exists()) {
-        			log.error("{} exists and is not a directory -- cannot create", baseFolder);
-        		} else if ( ! baseFolder.mkdirs()){
-        			log.error("{} could not be created -- check permissions", baseFolder);        			
-        		}
-        	} else {
-        		log.info("using already-existing base folder :-)");
-        	}
-        	baseFolder.mkdirs();
-    	} catch (IOException ioe) {
-    		log.error("Could not read properties file! No base folder!", ioe);
+    	} catch (IOException ioe) 
+    	{
+    		log.error("Could not read properties file! No base directory!", ioe);
     	}
     	
     	log.info("read {} properties", props.size());
@@ -58,13 +45,8 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     	return props.getProperty(key);
     }
     
-    public static File getFolder(String name) {
-    	File folder = new File(baseFolder, name);
-    	if ( ! folder.exists()) folder.mkdirs();
-    	return folder;
-    }
-    
-    public static File getFile(String folder, String name) {
-    	return new File(getFolder(folder), name);
+    public static IWFileManager getFileManager()
+    {
+    	return fileManager;
     }
 }
