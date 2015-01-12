@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 
+import util.IWFileManager;
+
 public class ContextInitializer implements ApplicationContextInitializer<ConfigurableWebApplicationContext> {
 
     private static final Logger log = LoggerFactory.getLogger(ContextInitializer.class);
@@ -17,6 +19,8 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     private static final Properties props = new Properties();
     
     private static File baseFolder;
+    
+    private static IWFileManager fileManager;
     
     public ContextInitializer() {
         log.debug("Got the constructor");
@@ -27,6 +31,9 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     	
     	try {
     		props.load(getClass().getResourceAsStream("/app.properties")); 
+    		
+    		fileManager = new IWFileManager(getProperty("base"));
+    		
     		baseFolder = new File(props.getProperty("base"));
         	log.info("base folder is {}", baseFolder.getAbsolutePath());
         	if (!baseFolder.isDirectory()) {

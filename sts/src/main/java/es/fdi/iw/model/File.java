@@ -17,21 +17,18 @@ import javax.persistence.NamedQuery;
 public class File {
 	
 	private long id;
-	private String Name;
-	private String route;
-	private User owner;
-	private int upVotes;
-	private int downVotes;
+	private String name;
 	private Date date;
-	private String subject;
+	private String tags;
 
 	public File() {
 	}
 	
-	public static File createPost(String text, User owner) {
+	public static File createFile(String name, String tags) {
 		File f = new File();
-		f.Name = text;
-		f.owner = owner; // Ojo que aqui no comprobamos si el usuario está en la bd
+		f.name = name;
+		f.date = new Date(); //RTFM, is initialized to the time of allocation
+		f.tags = tags;
 	
 		return f;
 	}
@@ -47,31 +44,6 @@ public class File {
 		this.id = id;
 	}
 
-	@ManyToOne(targetEntity=User.class)
-	public User getOwner() {
-		return this.owner;
-	}
-	
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-	
-	public int getUpVotes() {
-		return this.upVotes;
-	}
-	
-	public void setUpVotes(int upVotes) {
-		this.upVotes = upVotes;
-	}
-	
-	public int getDownVotes() {
-		return this.downVotes;
-	}
-	
-	public void setDownVotes(int downVotes) {
-		this.downVotes = downVotes;
-	}
-
 	public void setDate(Date d){
 		this.date=d;
 	}
@@ -81,39 +53,18 @@ public class File {
 	}
 
 	public String getName() {
-		return Name;
+		return this.name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
-	public String getRoute() {
-		return route;
+	public String getTags() {
+		return this.tags;
 	}
 
-	public void setRoute(String route) {
-		this.route = route;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-
-
-
-	// CAMBIAR APARTIR DE AQUIIIIIIIIIIIII !!!!!!!!!!!!!!
-	/////////////////////////////////////////////////////
-	
-	
-	
-
-	public String toString() {
-		return "" + id + " ";
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }
