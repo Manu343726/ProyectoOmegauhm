@@ -221,7 +221,7 @@ public class HomeController {
 			
 			for(int i = 0; i < threads; ++i)
 			{
-				Topic topic = manager.newTopic("user" , "TÃ­tulo pregunta " + i, "Texto pregunta " + i, "tag1 tag2 tag3");
+				Topic topic = manager.newTopic("user" , "Título pregunta " + i, "Texto pregunta " + i, "tag1 tag2 tag3");
 				
 				for(int j = 0; j < answers_per_thread; ++j)
 					manager.newPost(topic, "Texto respuesta " + i + "." + j, "admin");
@@ -361,12 +361,6 @@ public class HomeController {
 			logger.info("Answer [id=" + answer.getId() + ",owner=" + answer.getOwner().getLogin() + ",points=" + answer.getVotes() + "]");
 		
 		return "topic";
-	}
-	
-	@Transactional
-	String topicURI(Topic topic)
-	{
-		return "topic/" + topic.getId() + "/" + topic.getTitle();
 	}
 	
 	/**

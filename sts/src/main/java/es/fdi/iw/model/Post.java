@@ -1,6 +1,9 @@
 package es.fdi.iw.model;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +32,7 @@ public class Post {
 	private String text;
 	private int upVotes;
 	private int downVotes;
-	private Date date;
+	private String timeStamp;
 	private User owner;
 	
 	@ManyToOne
@@ -48,6 +51,8 @@ public class Post {
 		p.upVotes = 0;
 		p.downVotes = 0;
 		
+		p.timeStamp = new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(Calendar.getInstance().getTime());
+		//p.timeStamp = "dd/mm/aa";
 		return p;
 	}
 	
@@ -123,5 +128,13 @@ public class Post {
 	public String getUri()
 	{
 		return getThread().getURI() + "/#" + getId();
+	}
+	
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+	
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 }

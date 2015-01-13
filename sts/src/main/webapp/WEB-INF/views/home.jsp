@@ -55,6 +55,7 @@
 								<jsp:param name="votes" value="${t.question.votes}" />
 								<jsp:param name="answers" value="${t.answerscount}" />
 								<jsp:param name="views" value="CER" />
+								<jsp:param name="date" value="${t.question.timeStamp}" />
 							</jsp:include>
 						</c:forEach>
 					</div>

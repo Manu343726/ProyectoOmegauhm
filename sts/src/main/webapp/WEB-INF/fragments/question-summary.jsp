@@ -30,7 +30,7 @@
 			<span class="label label-default">${name}</span>
 		</c:forTokens>
 		<div class="started pull-right">
-			<a>N/A</a>
+			<a>${param.date}</a>
 		</div>
 	</div> <!-- question-text -->
 	
