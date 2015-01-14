@@ -1,6 +1,6 @@
 package es.fdi.iw.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,7 +23,9 @@ import javax.transaction.Transactional;
     @NamedQuery(name="topicById",
         query="select t from Topic t where t.id = :idParam"),
     @NamedQuery(name="topicByTitle",
-        query="select t from Topic t where t.title = :title")
+        query="select t from Topic t where t.title = :title"),
+    @NamedQuery(name="topicsByDate",
+        query="select t from Topic t join t.question q order by q.date desc")
 })
 public class Topic {
 	static class NoQuestionOnTopicException extends Exception
@@ -38,8 +40,10 @@ public class Topic {
 	private String tags;
 	private Post question;
 	private List<Post> answers;
-	
 	private int answersCount;
+	private int viewsCount;
+	
+	
 	
 	public Topic() {}
 	
@@ -52,6 +56,7 @@ public class Topic {
 		t.tags = tags;
 		t.answers = new ArrayList<Post>();
 		t.answersCount = 0;
+		t.viewsCount = 0;
 		
 		question.setThread(t);
 		
@@ -74,6 +79,14 @@ public class Topic {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public int getViewsCount() {
+		return viewsCount;
+	}
+	
+	public void setViewsCount(int viewsCount) {
+		this.viewsCount = viewsCount;
 	}
 	
 	public void setTags(String tags)

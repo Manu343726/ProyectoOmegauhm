@@ -18,12 +18,21 @@ public class IWEntityManager {
 		this.manager = manager;
 	}
 	
+	
+	
+	/************** CONSULTAS **************/
+	/***************************************/
+	
+	//// TABLA USER
+	
 	public User userByLogin(String login)
 	{
 		return (User)manager.createNamedQuery("userByLogin")
                 			.setParameter("loginParam", login)
         					.getSingleResult();
 	}
+	
+	//// TABLA TOPIC
 	
 	public Topic topicByTitle(String title)
 	{
@@ -46,6 +55,18 @@ public class IWEntityManager {
     						 	   .setParameter("login", login)
     						 	   .getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Topic> topicsByDate()
+	{
+		return (List<Topic>)manager.createNamedQuery("topicsByDate")
+								   .getResultList();
+	}
+	
+	
+	
+	/************** CREACIÓN DE ELEMENTOS **************/
+	/***************************************************/
 	
 	public Topic newTopic(User user, String title, String text, String tags)
 	{

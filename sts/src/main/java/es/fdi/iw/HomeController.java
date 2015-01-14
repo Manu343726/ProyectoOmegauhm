@@ -121,12 +121,6 @@ public class HomeController {
         return "repository";
     }
 	
-	public void addThreadsToSession(Model model)
-	{
-		List<Topic> threads = entityManager.createQuery("select t from Topic t").getResultList();
-		System.err.println(threads.size());
-		model.addAttribute("threads", threads);
-	}
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -164,7 +158,10 @@ public class HomeController {
 			}
 		}
 		
-		this.addThreadsToSession(model);
+		
+		List<Topic> threads = new IWEntityManager(entityManager).topicsByDate();
+		System.err.println(threads.size());
+		model.addAttribute("threads", threads);
 		
 		return "home";
 	}	
@@ -205,7 +202,9 @@ public class HomeController {
 	@RequestMapping(value = "/forum", method = RequestMethod.GET)
 	public String forum(Locale locale, Model model) {
 		logger.info("ENTRANDO AL FORO");
-		this.addThreadsToSession(model);
+		List<Topic> threads = new IWEntityManager(entityManager).topicsByDate();
+		System.err.println(threads.size());
+		model.addAttribute("threads", threads);
 		
 		return "forum";
 	}
@@ -290,7 +289,10 @@ public class HomeController {
 		Topic topic = (Topic)entityManager.createNamedQuery("topicById")
 		 								  .setParameter("idParam", id).getSingleResult();
 		
+		topic.setViewsCount(topic.getViewsCount() + 1);
+		
 		session.setAttribute("topic", topic);
+		
 		
 		//Workaround to hibernate lazy initialization issue
 		session.setAttribute("topic_question", topic.getQuestion());
@@ -300,6 +302,7 @@ public class HomeController {
 		//Some logging for logging purposes and to force lazy initialization of answers list
 		for(Post answer : topic.getAnswers())
 			logger.info("Answer [id=" + answer.getId() + ",owner=" + answer.getOwner().getLogin() + ",points=" + answer.getVotes() + "]");
+		
 		
 		return "topic";
 	}
