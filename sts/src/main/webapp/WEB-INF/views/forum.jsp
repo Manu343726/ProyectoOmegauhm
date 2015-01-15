@@ -76,10 +76,9 @@
 
 			<div id="forum-tab-content" class="tab-content">
 				<div class="tab-pane active" id="new-questions">
-
 					<div class="panel panel-default">
 						<div class="panel panel-body">
-							<c:forEach items="${threads}" var="t">
+							<c:forEach items="${threadsOrderedByDate}" var="t">
 								<jsp:include page="../fragments/question-summary.jsp">
 									<jsp:param name="title" value="${t.title}" />
 									<jsp:param name="id" value="${t.id}"/>
@@ -92,12 +91,24 @@
 							</c:forEach>
 						</div>
 					</div>
-
 				</div>
-				<div class="tab-pane" id="top-questions">
-
-					<h1>Top Questions</h1>
-
+				
+				<div class="tab-pane active" id="top-questions">
+					<div class="panel panel-default">
+						<div class="panel panel-body">
+							<c:forEach items="${threadsOrderedByViews}" var="t">
+								<jsp:include page="../fragments/question-summary.jsp">
+									<jsp:param name="title" value="${t.title}" />
+									<jsp:param name="id" value="${t.id}"/>
+									<jsp:param name="tags" value="${t.tags}" />
+									<jsp:param name="votes" value="${t.question.votes}" />
+									<jsp:param name="answers" value="${t.answerscount}" />
+									<jsp:param name="views" value="${t.viewsCount}" />
+									<jsp:param name="date" value="${t.question.timeStamp}" />
+								</jsp:include>
+							</c:forEach>
+						</div>
+					</div>
 				</div>
 
 			</div>

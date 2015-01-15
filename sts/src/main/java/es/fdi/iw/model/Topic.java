@@ -22,10 +22,10 @@ import javax.transaction.Transactional;
 @NamedQueries({
     @NamedQuery(name="topicById",
         query="select t from Topic t where t.id = :idParam"),
-    @NamedQuery(name="topicByTitle",
-        query="select t from Topic t where t.title = :title"),
     @NamedQuery(name="topicsByDate",
-        query="select t from Topic t join t.question q order by q.date desc")
+        query="select t from Topic t join t.question q order by q.date desc"),
+    @NamedQuery(name="topicsByViews",
+        query="select t from Topic t order by t.viewsCount desc")
 })
 public class Topic {
 	static class NoQuestionOnTopicException extends Exception

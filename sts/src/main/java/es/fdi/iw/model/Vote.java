@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="voteByUserAndPost",
+			query="select v from Vote v join v.user u join v.post p where u.id = :userIdParam and p.id = :postIdParam")
+})
 public class Vote {
 	
 	private long id;

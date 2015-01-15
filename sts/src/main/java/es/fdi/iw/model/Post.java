@@ -84,6 +84,7 @@ public class Post {
 		this.thread = thread;
 	}
 
+	@Column(length=4096)
 	public String getText() {
 		return text;
 	}
