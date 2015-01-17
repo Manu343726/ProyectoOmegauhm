@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,24 +37,19 @@ public class Topic {
 	private long id;
 	private String title;
 	private String tags;
-	private Post question;
-	private List<Post> answers;
-	
-	private int answersCount;
+	private List<Post> posts;
 	
 	public Topic() {}
 	
 	public static Topic createTopic(String title, Post question, String tags) {
 		Topic t = new Topic();
 		t.title = title;
-		t.question = question;
-		t.question.setType(PostType.QUESTION);
-		t.question.setThread(t);
 		t.tags = tags;
-		t.answers = new ArrayList<Post>();
-		t.answersCount = 0;
+		t.posts = new ArrayList<Post>();
 		
 		question.setThread(t);
+		question.setType(PostType.QUESTION);
+		t.posts.add(question);
 		
 		return t;
 	}
@@ -87,26 +83,15 @@ public class Topic {
 	}
 	
 	@OneToMany(targetEntity=Post.class,
-			   mappedBy="thread")//La relación pertenece al post
-	public List<Post> getAnswers()
+			   fetch = FetchType.EAGER)
+	public List<Post> getPosts()
 	{
-		return answers;
+		return posts;
 	}
 	
-	public void setAnswers(List<Post> posts)
+	public void setPosts(List<Post> posts)
 	{
-		this.answers = posts;
-	}
-	
-	@OneToOne
-	public Post getQuestion()
-	{
-		return question;
-	}
-	
-	public void setQuestion(Post question)
-	{
-		this.question = question;
+		this.posts = posts;
 	}
 	
 	public void addAnswer(User user, String answer)
@@ -114,14 +99,19 @@ public class Topic {
 		Post post = Post.createPost(answer, user);
 		post.setThread(this);
 		post.setType(PostType.ANSWER);
-		answers.add(post);
-		answersCount++;
+		posts.add(post);
+	}
+	
+	@Transient
+	public Post getQuestion()
+	{
+		return posts.get(0);
 	}
 	
 	@Transient
 	public int getAnswerscount()
 	{
-		return answersCount;
+		return posts.size() - 1;
 	}
 	
 	@Transient
