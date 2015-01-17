@@ -49,7 +49,7 @@ public class Vote {
 		this.id = id;
 	}	
 	
-	@ManyToOne(targetEntity=User.class)
+	@ManyToOne
 	public User getUser() {
 		return user;
 	}
@@ -58,7 +58,7 @@ public class Vote {
 		this.user = user;
 	}
 	
-	@ManyToOne(targetEntity=Post.class)
+	@ManyToOne
 	public Post getPost() {
 		return post;
 	}

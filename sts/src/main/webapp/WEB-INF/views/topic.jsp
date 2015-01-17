@@ -38,7 +38,7 @@
 	<div class="container">
 		<div class="row row-offcanvas row-offcanvas-center">
 			<div class="col-md-6">
-				<c:forEach items="${topic_answers}" var="post">
+				<c:forEach items="${topic_posts}" var="post">
 					<%@ include file="../fragments/post_view.jspf"%>
 				</c:forEach>
 			</div>

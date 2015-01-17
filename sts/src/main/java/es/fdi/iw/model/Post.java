@@ -3,12 +3,15 @@ package es.fdi.iw.model;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,15 +33,10 @@ public class Post {
 	@Lob
 	@Column(columnDefinition = "blob") //Deja de truncarme el texto cabrón NO FUNCIONA
 	private String text;
-	private int upVotes;
-	private int downVotes;
+	private List<Vote> votes;
 	private Date date;
 	private User owner;
-	
-	@ManyToOne
 	private Topic thread;
-	
-	@Enumerated(EnumType.STRING)
 	private PostType type; //true is a question, false is an answer
 	
 	public Post() {}
@@ -48,8 +46,7 @@ public class Post {
 		p.text = text;
 		p.owner = owner;
 		p.thread = null;
-		p.upVotes = 0;
-		p.downVotes = 0;
+		p.votes = new ArrayList<Vote>();
 		
 		p.date = new Date();
 		
@@ -93,28 +90,18 @@ public class Post {
 		this.text = text;
 	}
 	
-	public int getUpVotes() {
-		return upVotes;
+	public void setVotes(List<Vote> votes){
+		this.votes = votes;
 	}
 	
-	public void setUpVotes(int upVotes) {
-		this.upVotes = upVotes;
-	}
-	
-	public int getDownVotes() {
-		return downVotes;
-	}
-	
-	public void setDownVotes(int upVotes) {
-		this.downVotes = upVotes;
-	}
-	
-	@Transient
-	public int getVotes()
+	@OneToMany(targetEntity=Vote.class,
+			   fetch = FetchType.EAGER)
+	public List<Vote> getVotes()
 	{
-		return getUpVotes() - getDownVotes();
+		return votes;
 	}
 	
+	@Enumerated(EnumType.STRING)
 	public PostType getType()
 	{
 		return type;
@@ -125,22 +112,36 @@ public class Post {
 		this.type = type;
 	}
 	
+	public Date getDate(){
+		return date;
+	}
+	
+	public void setDate(Date date){
+		this.date = date;
+	}
+	
 	@Transient
 	public String getUri()
 	{
 		return getThread().getURI() + "/#" + getId();
 	}
 	
-	public Date getDate() {
-		return date;
-	}
-	
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
 	@Transient
-	public String getTimeStamp() {
+	public int getVotesCount(){
+		int count = 0;
+		
+		for(Vote v : votes){
+			if(v.getSign())
+				count++;
+			else
+				count--;
+		}
+		
+		return count;
+	}
+	
+	@Transient 
+	public String getTimeStamp(){
 		return new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(date);
 	}
 }

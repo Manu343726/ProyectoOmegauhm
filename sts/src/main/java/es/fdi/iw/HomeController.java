@@ -27,6 +27,7 @@ import util.IWEntityManager;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
+import es.fdi.iw.model.Vote;
 
 /**
  * Handles requests for the application home page.
@@ -67,7 +68,7 @@ public class HomeController {
 			} else {
 				logger.info("pass was NOT valid");
 				model.addAttribute("signinError",
-						"error en usuario o contraseÃ±a");
+						"error en usuario o contraseï¿½a");
 			}
 		} catch (NoResultException nre) {
 			logger.info("no-such-user with login {}", formLogin);
@@ -118,8 +119,7 @@ public class HomeController {
 			@RequestParam("tags") String tags) {
 		es.fdi.iw.model.File file = ContextInitializer.getFileManager()
 				.uploadFile(load, tags);
-		
-		///////////////////////////////////////////////////////
+
 		if (file != null) {
 			entityManager.persist(file);
 		}
@@ -155,7 +155,7 @@ public class HomeController {
 			logger.info("Mocking up DB...");
 
 			for (int i = 0; i < threads; ++i) {
-				Topic topic = manager.newTopic("user", "Título pregunta " + i,
+				Topic topic = manager.newTopic("user", "Tï¿½tulo pregunta " + i,
 						"Texto pregunta " + i, "tag1 tag2 tag3");
 
 				for (int j = 0; j < answers_per_thread; ++j)
@@ -292,13 +292,13 @@ public class HomeController {
 
 		// Workaround to hibernate lazy initialization issue
 		session.setAttribute("topic_question", topic.getQuestion());
-		session.setAttribute("topic_answers", topic.getAnswers());
+		session.setAttribute("topic_posts", topic.getPosts());
 		session.setAttribute("topic_asker", topic.getQuestion().getOwner());
 
 		// Some logging for logging purposes and to force lazy initialization of
 		// answers list
-		for (Post answer : topic.getAnswers())
-			logger.info("Answer [id=" + answer.getId() + ",owner="
+		for (Post answer : topic.getPosts())
+			logger.info("Post [id=" + answer.getId() + ",owner="
 					+ answer.getOwner().getLogin() + ",points="
 					+ answer.getVotes() + "]");
 
@@ -313,18 +313,16 @@ public class HomeController {
 	public String vote(@PathVariable("id") long id,
 			@PathVariable("value") int value, HttpSession session,
 			HttpServletRequest request) {
-		
-		Post post = new IWEntityManager(entityManager).postById(id);
 
 		if (!this.isLogged(session))
 			return "401"; // go fuck yourself
 
-		if (value >= 0)
-			post.setUpVotes(post.getUpVotes() + value);
-		else
-			post.setDownVotes(post.getDownVotes() - value);
+		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 
-		return "redirect:/" + post.getUri();
+		if(vote == null)
+			return "redirect:401";
+		
+		return "redirect:/" + vote.getPost().getUri();
 	}
 
 }

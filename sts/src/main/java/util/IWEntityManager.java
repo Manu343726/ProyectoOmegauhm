@@ -9,6 +9,7 @@ import javassist.NotFoundException;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.User;
+import es.fdi.iw.model.Vote;
 
 public class IWEntityManager {
 	private EntityManager manager;
@@ -16,7 +17,7 @@ public class IWEntityManager {
 	public IWEntityManager(EntityManager manager) {
 		this.manager = manager;
 	}
-
+	
 	/**************************** USER ****************************/
 	/**************************************************************/
 
@@ -38,6 +39,23 @@ public class IWEntityManager {
 	public Post postById(long id) {
 		return (Post) manager.createNamedQuery("postById")
 				.setParameter("idParam", id).getSingleResult();
+	}
+
+public Vote votePost(Post post, User user, boolean positive){
+		if(post.getOwner() != user){
+			Vote vote = Vote.createVote(user, post, positive);
+			
+			manager.persist(vote);
+			
+			return vote;
+		} 
+		else
+			return null;
+			
+	}
+	
+	public Vote votePost(long postId, User user, boolean positive){
+		return votePost(postById(postId), user, positive);
 	}
 
 	public Post answerQuestion(Topic topic, String text, String login) {
