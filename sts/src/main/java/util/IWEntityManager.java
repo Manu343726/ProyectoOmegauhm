@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import javassist.NotFoundException;
 import es.fdi.iw.model.Post;
@@ -23,7 +24,8 @@ public class IWEntityManager {
 
 	public User userByLogin(String login) {
 		return (User) manager.createNamedQuery("userByLogin")
-				.setParameter("loginParam", login).getSingleResult();
+							 .setParameter("loginParam", login)
+							 .getSingleResult();
 	}
 
 	public User newUser(String login, String email, String password) {
@@ -41,16 +43,26 @@ public class IWEntityManager {
 				.setParameter("idParam", id).getSingleResult();
 	}
 
-public Vote votePost(Post post, User user, boolean positive){
-		if(post.getOwner() != user){
-			Vote vote = Vote.createVote(user, post, positive);
-			
-			manager.persist(vote);
-			
-			return vote;
-		} 
-		else
+	public Vote votePost(Post post, User user, boolean positive){
+		
+		Vote vote = null;
+		
+		try {
+			vote = voteByUserAndPost(user.getId(), post.getId());
 			return null;
+		}
+		catch (NoResultException nre) {
+			if(post.getOwner() != user){
+				vote = Vote.createVote(user, post, positive);
+				
+				manager.persist(post);
+				manager.persist(vote);
+				
+				return vote;
+			} 
+			else
+				return null;
+		}
 			
 	}
 	
@@ -61,9 +73,8 @@ public Vote votePost(Post post, User user, boolean positive){
 	public Post answerQuestion(Topic topic, String text, String login) {
 		User user = userByLogin(login);
 		Post post = Post.createPost(text, user);
-
-		post.setOwner(user);
-		post.setThread(topic);
+		
+		topic.addAnswer(post);
 
 		manager.persist(post);
 		manager.persist(topic);
@@ -107,6 +118,16 @@ public Vote votePost(Post post, User user, boolean positive){
 
 	public Topic newTopic(String login, String title, String text, String tags) {
 		return newTopic(userByLogin(login), title, text, tags);
+	}
+	
+	
+	/**************************** VOTE ****************************/
+	/***************************************************************/
+	public Vote voteByUserAndPost(long userId, long postId) {
+		return (Vote) manager.createNamedQuery("voteByUserAndPost")
+							 .setParameter("userIdParam", userId)
+							 .setParameter("postIdParam", postId)
+							 .getSingleResult();
 	}
 
 }

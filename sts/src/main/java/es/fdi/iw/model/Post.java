@@ -126,6 +126,10 @@ public class Post {
 		return getThread().getURI() + "/#" + getId();
 	}
 	
+	public void addVote(Vote v) {
+		votes.add(v);
+	}
+	
 	@Transient
 	public int getVotesCount(){
 		int count = 0;

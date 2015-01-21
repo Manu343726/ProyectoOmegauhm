@@ -23,7 +23,7 @@
 					</a>
 				</div>
 				<div class="row">
-					<span class="label label-default">${post.votes} points</span>
+					<span class="label label-default">${post.votesCount} points</span>
 				</div>
 			</div>
 

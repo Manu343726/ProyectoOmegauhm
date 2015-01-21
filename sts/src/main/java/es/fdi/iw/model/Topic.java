@@ -24,7 +24,7 @@ import javax.transaction.Transactional;
     @NamedQuery(name="topicById",
         query="select t from Topic t where t.id = :idParam"),
     @NamedQuery(name="topicsByDate",
-        query="select t from Topic t join t.question q order by q.date desc"),
+        query="select t from Topic t order by t.started desc"),
     @NamedQuery(name="topicsByViews",
         query="select t from Topic t order by t.viewsCount desc")
 })
@@ -41,6 +41,7 @@ public class Topic {
 	private String tags;
 	private List<Post> posts;
 	private int viewsCount;
+	private Date started;
 	
 	public Topic() {}
 	
@@ -54,6 +55,9 @@ public class Topic {
 		question.setThread(t);
 		question.setType(PostType.QUESTION);
 		t.posts.add(question);
+		
+		t.started = question.getDate();
+				
 		
 		return t;
 	}
@@ -106,9 +110,17 @@ public class Topic {
 		this.posts = posts;
 	}
 	
-	public void addAnswer(User user, String answer)
+	public Date getStarted() {
+		return started;
+	}
+	
+	public void setStarted(Date started) {
+		this.started = started;
+	}
+	
+	public void addAnswer(Post post)
 	{
-		Post post = Post.createPost(answer, user);
+		
 		post.setThread(this);
 		post.setType(PostType.ANSWER);
 		posts.add(post);
@@ -121,7 +133,7 @@ public class Topic {
 	}
 	
 	@Transient
-	public int getAnswerscount()
+	public int getAnswersCount()
 	{
 		return posts.size() - 1;
 	}

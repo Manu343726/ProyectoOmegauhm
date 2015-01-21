@@ -52,8 +52,8 @@
 								<jsp:param name="title" value="${t.title}" />
 								<jsp:param name="id" value="${t.id}"/>
 								<jsp:param name="tags" value="${t.tags}" />
-								<jsp:param name="votes" value="${t.question.votescount}" />
-								<jsp:param name="answers" value="${t.answerscount}" />
+								<jsp:param name="votes" value="${t.question.votesCount}" />
+								<jsp:param name="answers" value="${t.answersCount}" />
 								<jsp:param name="views" value="${t.viewsCount}" />
 								<jsp:param name="date" value="${t.question.timeStamp}" />
 							</jsp:include>

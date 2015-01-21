@@ -318,9 +318,9 @@ public class HomeController {
 			return "401"; // go fuck yourself
 
 		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
-
+		
 		if(vote == null)
-			return "redirect:401";
+			return "redirect: 401";
 		
 		return "redirect:/" + vote.getPost().getUri();
 	}

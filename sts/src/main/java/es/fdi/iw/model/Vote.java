@@ -36,6 +36,8 @@ public class Vote {
 		v.post = post;
 		v.sign = sign;
 		
+		post.addVote(v);
+		
 		return v;
 	}
 	
