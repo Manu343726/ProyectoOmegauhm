@@ -316,13 +316,21 @@ public class HomeController {
 
 		if (!this.isLogged(session))
 			return "401"; // go fuck yourself
+		
+		Post post = new IWEntityManager(entityManager).postById(id);
 
 		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 		
-		if(vote == null)
-			return "redirect: 401";
+		System.err.println(vote);
 		
-		return "redirect:/" + vote.getPost().getUri();
+		/*if(vote == null) {
+			System.err.println("NO SE PUEDE VOTAR");
+			return "redirect:/";
+		}
+		else
+			return "redirect:/" + vote.getPost().getUri();*/
+		
+		return "redirect:/" + post.getUri();
 	}
 
 }

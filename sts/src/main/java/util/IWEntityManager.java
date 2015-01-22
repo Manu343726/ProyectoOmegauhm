@@ -43,17 +43,15 @@ public class IWEntityManager {
 				.setParameter("idParam", id).getSingleResult();
 	}
 
-	public Vote votePost(Post post, User user, boolean positive){
-		
-		Vote vote = null;
+	public Vote votePost(Post post, User user, boolean positive) {
 		
 		try {
-			vote = voteByUserAndPost(user.getId(), post.getId());
-			return null;
+			Vote v = null;
+			v = voteByUserAndPost(user.getId(), post.getId());	
 		}
 		catch (NoResultException nre) {
 			if(post.getOwner() != user){
-				vote = Vote.createVote(user, post, positive);
+				Vote vote = Vote.createVote(user, post, positive);
 				
 				manager.persist(post);
 				manager.persist(vote);
@@ -63,6 +61,7 @@ public class IWEntityManager {
 			else
 				return null;
 		}
+		return null;
 			
 	}
 	
