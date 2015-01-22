@@ -6,9 +6,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="moderationQueue",
+        query="select m from Moderation m")
+})
 public class Moderation {
 	private long id;
 	private ModerationEvent event;
@@ -27,17 +33,17 @@ public class Moderation {
 		
 		switch(event) {
 			case EditFile:  
-				m.category = ModerationCategory.File;
+				m.category = ModerationCategory.File; break;
 			case EditPost:  
-				m.category = ModerationCategory.Post;
+				m.category = ModerationCategory.Post; break;
 			case NewFile:   
-				m.category = ModerationCategory.File;
+				m.category = ModerationCategory.File; break;
 			case NewPost:   
-				m.category = ModerationCategory.Post;
+				m.category = ModerationCategory.Post; break;
 			case NewThread: 
-				m.category = ModerationCategory.Thread;
+				m.category = ModerationCategory.Thread; break;
 			case DeleteFile:
-				m.category = ModerationCategory.File;
+				m.category = ModerationCategory.File; break;
 		}
 		
 		return m;
@@ -91,7 +97,7 @@ public class Moderation {
 	
 	@Transient
 	public Topic getThread() {
-		if(category == ModerationCategory.File || category == ModerationCategory.Post) {
+		if(category == ModerationCategory.Thread || category == ModerationCategory.Post) {
 			return post.getThread();
 		} else {
 			return null;

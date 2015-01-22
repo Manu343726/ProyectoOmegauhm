@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.IWEntityManager;
+import util.IWModerationManager;
+import es.fdi.iw.model.Moderation;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
@@ -156,13 +158,15 @@ public class HomeController {
 			logger.info("Mocking up DB...");
 
 			for (int i = 0; i < threads; ++i) {
-				Topic topic = manager.newTopic("user", "T�tulo pregunta " + i,
+				Topic topic = manager.newTopic("user", "Título pregunta " + i,
 						"Texto pregunta " + i, "tag1 tag2 tag3");
 
 				for (int j = 0; j < answers_per_thread; ++j)
 					manager.answerQuestion(topic, "Texto respuesta " + i + "."
 							+ j, "admin");
 			}
+			
+			
 		}
 
 		List<Topic> threads = manager.topicsByDate();
@@ -207,9 +211,13 @@ public class HomeController {
 	/**
 	 * 
 	 */
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(Locale locale, Model model) {
-		return "admin";
+	@RequestMapping(value = "/moderation", method = RequestMethod.GET)
+	@Transactional
+	public String moderation(Locale locale, Model model) {
+		model.addAttribute("moderationQueue", 
+				           IWModerationManager.get(entityManager).moderationQueue());
+		
+		return "moderation";
 	}
 
 	@RequestMapping(value = "/file/select", method = RequestMethod.GET)

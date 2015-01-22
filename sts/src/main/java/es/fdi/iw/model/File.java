@@ -1,5 +1,6 @@
 package es.fdi.iw.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
@@ -75,5 +77,10 @@ public class File {
 
 	public void setDeletePending(boolean deletePending) {
 		this.deletePending = deletePending;
+	}
+	
+	@Transient 
+	public String getTimeStamp(){
+		return new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(date);
 	}
 }

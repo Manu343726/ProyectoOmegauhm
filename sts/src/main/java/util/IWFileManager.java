@@ -58,7 +58,7 @@ public class IWFileManager
 	}
 	
 	public void trueDeleteFile(es.fdi.iw.model.File file, User moderator) throws IOException {
-		if(moderator.getRole() == "moderator") {
+		if(moderator.getRole() == "admin") {
 			getFile(file).delete();
 			manager.remove(file);
 		}

@@ -36,7 +36,7 @@ public class IWEntityManager {
 	}
 
 	public User newUser(String login, String email, String password) {
-		User user = User.createUser(login, password, "user", email);
+		User user = User.createUser(login, password, "admin", email);
 		manager.persist(user);
 
 		return user;

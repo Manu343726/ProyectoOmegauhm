@@ -1,5 +1,7 @@
 package util;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import es.fdi.iw.model.File;
@@ -25,6 +27,14 @@ public class IWModerationManager {
 		manager.persist(m);
 		
 		return m;
+	}
+	
+	/**************************** QUEUE ****************************/
+	/***************************************************************/
+	
+	@SuppressWarnings("unchecked")
+	public List<Moderation> moderationQueue() {
+		return (List<Moderation>) manager.createNamedQuery("moderationQueue").getResultList();
 	}
 	
 	/**************************** TOPIC ****************************/
