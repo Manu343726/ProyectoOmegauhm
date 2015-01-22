@@ -60,7 +60,7 @@ public class HomeController {
 		User u = null;
 		try {
 			
-			u = new IWEntityManager(entityManager).userByLogin(formLogin);
+			u = IWEntityManager.get(entityManager).userByLogin(formLogin);
 
 			if (u.isPassValid(formPass)) {
 				logger.info("pass was valid");
@@ -86,7 +86,7 @@ public class HomeController {
 		String formPass = request.getParameter("pass");
 		logger.info("Register attempt from '{}'", formLogin);
 
-		IWEntityManager manager = new IWEntityManager(entityManager);
+		IWEntityManager manager = IWEntityManager.get(entityManager);
 
 		User u = null;
 
@@ -114,14 +114,17 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/file/fileload", method = RequestMethod.POST)
+	@Transactional
 	public @ResponseBody String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
 			@RequestParam("tags") String tags) {
-		es.fdi.iw.model.File file = ContextInitializer.getFileManager()
+		es.fdi.iw.model.File file = ContextInitializer.getFileManager(entityManager)
 				.uploadFile(load, tags);
 
 		if (file != null) {
 			entityManager.persist(file);
+			
+			
 		}
 
 		return "repository";
@@ -144,7 +147,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("pageTitle", "Bienvenido a IW");
 
-		IWEntityManager manager = new IWEntityManager(entityManager);
+		IWEntityManager manager = IWEntityManager.get(entityManager);
 		
 		// Mocking
 		if (manager.topicsByDate().size() <= 0) {
@@ -193,7 +196,7 @@ public class HomeController {
 	@RequestMapping(value = "/forum", method = RequestMethod.GET)
 	public String forum(Locale locale, Model model) {
 		logger.info("ENTRANDO AL FORO");
-		IWEntityManager manager = new IWEntityManager(entityManager); 
+		IWEntityManager manager = IWEntityManager.get(entityManager); 
 		List<Topic> threadsOrderedByDate = manager.topicsByDate();
 		List<Topic> threadsOrderedByViews = manager.topicsByViews();
 		
@@ -269,8 +272,7 @@ public class HomeController {
 		if (user == null)
 			return "404";
 		
-		IWEntityManager manager = new IWEntityManager(entityManager);
-		manager.newTopic(user, formTitle, formText, formTags);
+		IWEntityManager.get(entityManager).newTopic(user, formTitle, formText, formTags);
 
 		return "redirect:/forum";
 	}
@@ -284,7 +286,7 @@ public class HomeController {
 			@PathVariable("title") String title, HttpSession session,
 			HttpServletRequest request) {
 		
-		Topic topic = new IWEntityManager(entityManager).topicById(id);
+		Topic topic = IWEntityManager.get(entityManager).topicById(id);
 
 		topic.setViewsCount(topic.getViewsCount() + 1);
 
@@ -317,9 +319,9 @@ public class HomeController {
 		if (!this.isLogged(session))
 			return "401"; // go fuck yourself
 		
-		Post post = new IWEntityManager(entityManager).postById(id);
+		Post post = IWEntityManager.get(entityManager).postById(id);
 
-		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
+		Vote vote = IWEntityManager.get(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 		
 		System.err.println(vote);
 		

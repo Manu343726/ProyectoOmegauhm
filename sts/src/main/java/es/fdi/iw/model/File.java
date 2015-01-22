@@ -20,6 +20,7 @@ public class File {
 	private String name;
 	private Date date;
 	private String tags;
+	private boolean deletePending; //File deletion event is on moderation queue, an user has no direct rights to delete a file
 
 	public File() {
 	}
@@ -29,11 +30,11 @@ public class File {
 		f.name = name;
 		f.date = new Date(); //RTFM, is initialized to the time of allocation
 		f.tags = tags;
+		f.deletePending = false;
 	
 		return f;
 	}
 
-	
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -66,5 +67,13 @@ public class File {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	
+	public boolean getDeletePending() {
+		return deletePending;
+	}
+
+	public void setDeletePending(boolean deletePending) {
+		this.deletePending = deletePending;
 	}
 }
