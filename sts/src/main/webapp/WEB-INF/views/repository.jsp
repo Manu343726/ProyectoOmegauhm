@@ -43,40 +43,17 @@
 			
 
 			<br>
-			<div id="repository-content">
-				<div class="row">
-					<div class=" col-md-offset-2 col-md-12">
-						<a href="#" class="thumbnail col-md-3">
-							<img src="resources/images/carpeta.png" alt="carpeta 1">
-								<div class="caption">
-									<h3>Grado en Ingeniería Informática</h3>
-								</div>
-						</a>
-						<a href="#" class="thumbnail col-md-offset-2 col-md-3">
-							<img src="resources/images/carpeta.png" alt="carpeta 2" class="img-rounded">
-								<div class="caption">
-									<h3>Grado en Ingeniería de Computadores</h3>
-								</div>
-						</a>
-					</div>
-				</div>
-				<div class="row">
-					<div class=" col-md-offset-2 col-md-12">
-						<a href="#" class="thumbnail col-md-3">
-							<img src="resources/images/carpeta.png" alt="carpeta 3">
-								<div class="caption">
-									<h3>Grado en Ingeniería del Software</h3>
-								</div>
-						</a>
-						<a href="#" class="thumbnail col-md-offset-2 col-md-3">
-							<img src="resources/images/carpeta.png" alt="carpeta 4" class="img-rounded">
-								<div class="caption">
-									<h3>Doble Grado en Ingeniería Informática y Matemáticas</h3>
-								</div>
-						</a>
-								
-					</div>
-				</div>
+			<div id="repository-content">	
+				<ul class="list-group">
+					<c:forEach items="${files}" var="f">
+						<jsp:include page="../fragments/file-summary.jsp">
+							<jsp:param name="id" value="${f.id}" />
+							<jsp:param name="name" value="${f.name}"/>
+							<jsp:param name="date" value="${f.date}" />
+							<jsp:param name="tags" value="${f.tags}" />
+						</jsp:include>
+					</c:forEach>
+				</ul>
 			</div>
 </div>
 

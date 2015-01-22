@@ -53,7 +53,6 @@ public class IWEntityManager {
 			if(post.getOwner() != user){
 				Vote vote = Vote.createVote(user, post, positive);
 				
-				manager.persist(post);
 				manager.persist(vote);
 				
 				return vote;

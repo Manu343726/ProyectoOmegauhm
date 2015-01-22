@@ -12,7 +12,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name="FileById",
-        query="select u from User u where u.login = :loginParam") //CAMBIAR
+        query="select f from File f where f.id = :idParam")
 })
 public class File {
 	

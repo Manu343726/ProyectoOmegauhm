@@ -35,6 +35,3 @@
 	</div> <!-- question-text -->
 	
 </div> <!-- question-summary -->
-
-
-<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>
