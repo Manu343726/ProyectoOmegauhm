@@ -1,14 +1,22 @@
 package es.fdi.iw.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+@Entity
 public class Moderation {
+	private long id;
 	private ModerationEvent event;
 	private ModerationCategory category;
 	private File file;
 	private Post post;
 	
-	private Moderation(){}
+	public Moderation(){}
 	
 	public static Moderation createModeration(ModerationEvent event, File file, Post post) {
 		Moderation m = new Moderation();
@@ -28,11 +36,24 @@ public class Moderation {
 				m.category = ModerationCategory.Post;
 			case NewThread: 
 				m.category = ModerationCategory.Thread;
+			case DeleteFile:
+				m.category = ModerationCategory.File;
 		}
 		
 		return m;
 	}
+	
+	@Id
+	@GeneratedValue
+	public long getId() {
+		return id;
+	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@Enumerated(EnumType.STRING)
 	public ModerationCategory getCategory() {
 		return category;
 	}
@@ -41,6 +62,7 @@ public class Moderation {
 		this.category = category;
 	}
 	
+	@ManyToOne(targetEntity=File.class)
 	public File getFile() {
 		return file;
 	}
@@ -49,6 +71,7 @@ public class Moderation {
 		this.file = file;
 	}
 
+	@ManyToOne(targetEntity=Post.class)
 	public Post getPost() {
 		return post;
 	}
@@ -57,6 +80,7 @@ public class Moderation {
 		this.post = post;
 	}
 	
+	@Enumerated(EnumType.STRING)
 	public ModerationEvent getEvent() {
 		return event;
 	}

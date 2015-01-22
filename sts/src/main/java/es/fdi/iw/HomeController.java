@@ -123,8 +123,6 @@ public class HomeController {
 
 		if (file != null) {
 			entityManager.persist(file);
-			
-			
 		}
 
 		return "repository";
@@ -152,8 +150,8 @@ public class HomeController {
 		// Mocking
 		if (manager.topicsByDate().size() <= 0) {
 			
-			int threads = 10;
-			int answers_per_thread = 10;
+			int threads = 3;
+			int answers_per_thread = 3;
 
 			logger.info("Mocking up DB...");
 
