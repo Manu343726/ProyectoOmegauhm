@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.IWEntityManager;
+import util.IWFileManager;
 import util.IWModerationManager;
 import es.fdi.iw.model.Moderation;
 import es.fdi.iw.model.Topic;
@@ -340,5 +341,43 @@ public class HomeController {
 		
 		return "redirect:/" + post.getUri();
 	}
-
+	
+	@Transactional
+	@RequestMapping(value = "/moderation/dimiss/{id}", method = RequestMethod.GET)
+	public String dimissModerationEvent(@PathVariable("id") long id, HttpSession session,
+			HttpServletRequest request) {
+		
+		if(isLogged(session)) {		
+			IWModerationManager.ModerationResult  result = IWModerationManager.get(entityManager)
+					.dimissEvent(id, (User)session.getAttribute("user"));
+			
+			session.setAttribute("moderationResult", result);
+			session.setAttribute("moderationQueue", 
+			           IWModerationManager.get(entityManager).moderationQueue());
+	
+			return "moderation";
+		}
+		else
+			return "redirect:/login";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/moderation/accept/{id}", method = RequestMethod.GET)
+	public String acceptModerationEvent(@PathVariable("id") long id, HttpSession session,
+			HttpServletRequest request) {
+		
+		if(isLogged(session)) {
+			IWModerationManager.ModerationResult result = IWModerationManager.get(entityManager)
+					.acceptModeration(ContextInitializer.getFileManager(entityManager),
+	            		         	  id, (User)session.getAttribute("user"));
+			
+			session.setAttribute("moderationResult", result);
+			session.setAttribute("moderationQueue", 
+			           IWModerationManager.get(entityManager).moderationQueue());
+	
+			return "redirect:/moderation";	
+		}
+		else
+			return "redirect:/login";
+	}
 }

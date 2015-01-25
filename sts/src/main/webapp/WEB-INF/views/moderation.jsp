@@ -29,9 +29,19 @@
 <body>
 
 	<%@ include file="../fragments/header.jspf"%>
-	
 
 	<div class="container">
+		<c:if test="${not empty moderationResult}">
+			<c:choose>
+	  			<c:when test="${moderationResult.successful}">
+	  				<div class="alert alert-success" role="alert">${moderationResult.message}</div>
+	  			</c:when>
+	  			<c:otherwise>
+	  				<div class="alert alert-danger" role="alert">${moderationResult.message}</div>
+	  			</c:otherwise>
+	   		</c:choose>
+		</c:if>
+	
 		<div id="forum-content">
 					<div class="panel panel-default">
 						<div class="panel panel-body">

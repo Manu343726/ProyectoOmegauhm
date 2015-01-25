@@ -13,7 +13,9 @@ import javax.persistence.Transient;
 @Entity
 @NamedQueries({
     @NamedQuery(name="moderationQueue",
-        query="select m from Moderation m")
+        query="select m from Moderation m"),
+    @NamedQuery(name="moderationById",
+        query="select m from Moderation m where m.id = :idParam")
 })
 public class Moderation {
 	private long id;
