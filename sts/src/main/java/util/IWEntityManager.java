@@ -45,7 +45,7 @@ public class IWEntityManager {
 
 	public Vote votePost(Post post, User user, boolean positive) {
 		
-		try {
+		/*try {
 			Vote v = null;
 			v = voteByUserAndPost(user.getId(), post.getId());	
 		}
@@ -60,7 +60,20 @@ public class IWEntityManager {
 			else
 				return null;
 		}
-		return null;
+		return null;*/
+		
+		List<Vote> votes;
+		votes = votesByUserAndPost(user.getId(), post.getId());
+		
+		if(votes.isEmpty() && post.getOwner() != user) {
+			Vote vote = Vote.createVote(user, post, positive);
+			
+			manager.persist(vote);
+			
+			return vote;
+		}
+		else
+			return null;
 			
 	}
 	
@@ -121,11 +134,12 @@ public class IWEntityManager {
 	
 	/**************************** VOTE ****************************/
 	/***************************************************************/
-	public Vote voteByUserAndPost(long userId, long postId) {
-		return (Vote) manager.createNamedQuery("voteByUserAndPost")
-							 .setParameter("userIdParam", userId)
-							 .setParameter("postIdParam", postId)
-							 .getSingleResult();
+	@SuppressWarnings("unchecked")
+	public List<Vote> votesByUserAndPost(long userId, long postId) {
+		return (List<Vote>) manager.createNamedQuery("votesByUserAndPost")
+							 	   .setParameter("userIdParam", userId)
+							 	   .setParameter("postIdParam", postId)
+							       .getResultList();
 	}
 
 }

@@ -5,15 +5,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.fdi.iw.ContextInitializer;
+import es.fdi.iw.model.User;
+
 
 public class IWFileManager 
 {
+	private EntityManager manager;
 	private File baseDirectory;
 	static final Logger log = LoggerFactory.getLogger(IWFileManager.class);
 	
@@ -50,11 +55,11 @@ public class IWFileManager
 		getFile(file).delete();
 	}
 	
-	public es.fdi.iw.model.File uploadFile(MultipartFile load, String tags)
+	public es.fdi.iw.model.File uploadFile(MultipartFile load, String tags, User owner)
 	{
 		if (!load.isEmpty()) {
             try {
-            	es.fdi.iw.model.File file = es.fdi.iw.model.File.createFile(load.getOriginalFilename(), tags);
+            	es.fdi.iw.model.File file = es.fdi.iw.model.File.createFile(load.getOriginalFilename(), tags, owner);
             			
                 byte[] bytes = load.getBytes();
                 BufferedOutputStream stream =

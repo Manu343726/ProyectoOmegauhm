@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.IWEntityManager;
+import util.IWFileManager;
+import es.fdi.iw.model.File;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
@@ -114,17 +116,22 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/file/fileload", method = RequestMethod.POST)
-	public @ResponseBody String handleFileUpload(
+	@Transactional
+	public /* @ResponseBody*/ String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
-			@RequestParam("tags") String tags) {
-		es.fdi.iw.model.File file = ContextInitializer.getFileManager()
-				.uploadFile(load, tags);
+			@RequestParam("tags") String tags,
+			HttpSession session) {
+
+			File file = ContextInitializer.getFileManager()
+				.uploadFile(load, tags, (User)session.getAttribute("user"));
 
 		if (file != null) {
 			entityManager.persist(file);
 		}
+		
+		logger.info("El fichero se ha creado correctamente");
 
-		return "repository";
+		return "redirect:/repository";
 	}
 
 	/**
@@ -182,8 +189,15 @@ public class HomeController {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/repository", method = RequestMethod.GET)
 	public String repository(Locale locale, Model model) {
+		logger.info("ENTRANDO AL REPO");
+		List<File> filesOrderedByDate = (List<File>) entityManager.createNamedQuery("filesByDate")
+			       												  .getResultList();
+		
+		model.addAttribute("filesOrderedByDate", filesOrderedByDate);
+		
 		return "repository";
 	}
 
@@ -325,7 +339,7 @@ public class HomeController {
 		
 		/*if(vote == null) {
 			System.err.println("NO SE PUEDE VOTAR");
-			return "redirect:/";
+			return "redirect: 401";
 		}
 		else
 			return "redirect:/" + vote.getPost().getUri();*/

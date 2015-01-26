@@ -28,10 +28,8 @@ import javax.persistence.Transient;
         query="select p from Post p where p.id = :idParam")
 })
 public class Post {
-	private long id;
 	
-	@Lob
-	@Column(columnDefinition = "blob") //Deja de truncarme el texto cabrón NO FUNCIONA
+	private long id;
 	private String text;
 	private List<Vote> votes;
 	private Date date;

@@ -1,5 +1,6 @@
 package es.fdi.iw.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,11 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
     @NamedQuery(name="FileById",
-        query="select f from File f where f.id = :idParam")
+        query="select f from File f where f.id = :idParam"),
+    @NamedQuery(name="filesByDate",
+    	query="select f from File f order by f.date desc")
 })
 public class File {
 	
@@ -20,15 +24,17 @@ public class File {
 	private String name;
 	private Date date;
 	private String tags;
+	private User owner;
 
 	public File() {
 	}
 	
-	public static File createFile(String name, String tags) {
+	public static File createFile(String name, String tags, User owner) {
 		File f = new File();
 		f.name = name;
 		f.date = new Date(); //RTFM, is initialized to the time of allocation
 		f.tags = tags;
+		f.owner = owner;
 	
 		return f;
 	}
@@ -66,5 +72,19 @@ public class File {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	
+	@ManyToOne(targetEntity=User.class)
+	public User getOwner() {
+		return owner;
+	}
+	
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+	
+	@Transient 
+	public String getTimeStamp(){
+		return new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(date);
 	}
 }

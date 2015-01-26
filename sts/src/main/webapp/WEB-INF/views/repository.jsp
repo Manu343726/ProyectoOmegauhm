@@ -45,12 +45,13 @@
 			<br>
 			<div id="repository-content">	
 				<ul class="list-group">
-					<c:forEach items="${files}" var="f">
+					<c:forEach items="${filesOrderedByDate}" var="f">
 						<jsp:include page="../fragments/file-summary.jsp">
 							<jsp:param name="id" value="${f.id}" />
 							<jsp:param name="name" value="${f.name}"/>
-							<jsp:param name="date" value="${f.date}" />
+							<jsp:param name="date" value="${f.timeStamp}" />
 							<jsp:param name="tags" value="${f.tags}" />
+							<jsp:param name="owner" value="${f.owner}" />
 						</jsp:include>
 					</c:forEach>
 				</ul>
