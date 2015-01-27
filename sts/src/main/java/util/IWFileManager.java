@@ -1,14 +1,18 @@
 package util;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,5 +79,11 @@ public class IWFileManager
         } else {
             return null;
         }
+	}
+	
+	public byte[] downloadFile(es.fdi.iw.model.File f) throws IOException {
+		File f = 
+		
+		
 	}
 }

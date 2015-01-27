@@ -1,5 +1,6 @@
 package es.fdi.iw;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.IWEntityManager;
-import util.IWFileManager;
 import es.fdi.iw.model.File;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
@@ -117,7 +119,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/file/fileload", method = RequestMethod.POST)
 	@Transactional
-	public /* @ResponseBody*/ String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
 			@RequestParam("tags") String tags,
 			HttpSession session) {
@@ -132,6 +134,26 @@ public class HomeController {
 		logger.info("El fichero se ha creado correctamente");
 
 		return "redirect:/repository";
+	}
+	
+	/*@ResponseBody
+	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET)
+	public byte[] handleFileDownload(@PathVariable("id") long id) throws IOException {
+		File f = (File) entityManager.createNamedQuery("fileById")
+									 .setParameter("idParam", id)
+					  				 .getSingleResult();
+				
+		return ContextInitializer.getFileManager().downloadFile(f);
+	}*/
+	
+	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public FileSystemResource getFile(@PathVariable("id") long id) throws IOException {
+		File f = (File) entityManager.createNamedQuery("fileById")
+				 .setParameter("idParam", id)
+ 				 .getSingleResult(); 
+		
+	    return new FileSystemResource(ContextInitializer.getFileManager().getFile(f)); 
 	}
 
 	/**

@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="FileById",
+    @NamedQuery(name="fileById",
         query="select f from File f where f.id = :idParam"),
     @NamedQuery(name="filesByDate",
     	query="select f from File f order by f.date desc")

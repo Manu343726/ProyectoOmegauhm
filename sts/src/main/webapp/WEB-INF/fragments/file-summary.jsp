@@ -1,3 +1,3 @@
 <div class="file-summary pull-left">
-	<a>${param.name}</a>	
+	<a href="${pageContext.request.contextPath}/file/download/${param.id}">${param.name}</a><br>
 </div> <!-- file-summary -->
