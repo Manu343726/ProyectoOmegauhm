@@ -137,4 +137,12 @@ public class IWEntityManager {
 							 	   .setParameter("postIdParam", postId)
 							       .getResultList();
 	}
+	
+	/**************************** VOTE ****************************/
+	/***************************************************************/
+	public File fileById(long id) {
+		return (File)manager.createNamedQuery("fileById")
+			                .setParameter("idParam", id)
+ 	             		    .getSingleResult();
+	}
 }

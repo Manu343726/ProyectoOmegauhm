@@ -82,6 +82,7 @@ public class File {
 	
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
 
 	public boolean getDeletePending() {
 		return deletePending;
@@ -94,7 +95,7 @@ public class File {
 	@Transient
 	public String getUri()
 	{
-		return "file/download/id/" + getId();
+		return "file/download/" + getId();
 	}
 	
 	@Transient 

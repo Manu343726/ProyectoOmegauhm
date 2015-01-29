@@ -103,6 +103,11 @@ public class IWModerationManager {
 		return (List<Moderation>) manager.createNamedQuery("moderationQueue").getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Moderation> moderationByDate() {
+		return (List<Moderation>) manager.createNamedQuery("ModerationByDate").getResultList();
+	}
+	
 	public Moderation moderationByid(long id) {
 		return (Moderation) manager.createNamedQuery("moderationById")
 				            .setParameter("idParam", id)

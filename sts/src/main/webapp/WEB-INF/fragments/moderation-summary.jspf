@@ -5,26 +5,18 @@
 		<div class="question-text pull-left">
 			<h4>
 				<c:if test="${m.category == 'File'}">
-					<a href="${pageContext.request.contextPath}${m.file.uri}">File "${m.file.name}" by ${m.file.owner.login}</a>
+					<a href="${pageContext.request.contextPath}/${m.file.uri}">File "${m.file.name}" by ${m.file.owner.login}</a>
 				</c:if>
 				<c:if test="${m.category == 'Thread'}">
-					<a href="${pageContext.request.contextPath}${m.thread.uri}">Topic "${m.thread.title}" by ${m.post.owner.login}</a>
+					<a href="${pageContext.request.contextPath}/${m.thread.uri}">Topic "${m.thread.title}" by ${m.post.owner.login}</a>
 				</c:if>
 				<c:if test="${m.category == 'Post'}">
-					<a href="${pageContext.request.contextPath}${m.post.uri}">Answer to "${m.thread.title}" by ${m.post.owner.login}</a>
+					<a href="${pageContext.request.contextPath}/${m.post.uri}">Answer to "${m.thread.title}" by ${m.post.owner.login}</a>
 				</c:if>
 			</h4>
 			<span class="label label-default">${m.category}</span>
-			<span class="label label-default">${m.event}</span>
-			
-			<c:choose>
-       			<c:when test="${m.category == 'File'}">
-       				<a>${m.file.timeStamp}</a>
-       			</c:when>
-       			<c:otherwise>
-       				<a>${m.post.timeStamp}</a>
-       			</c:otherwise>
-       		</c:choose>
+			<span class="label label-default">${m.event}</span>		
+			<a>${m.timeStamp}</a>
 			
 			<div class="started pull-right">
 				<span class="label label-success"><a href="${pageContext.request.contextPath}/moderation/accept/${m.id}">Accept</a></span>

@@ -24,7 +24,6 @@ public class IWFileManager
 {
 	private EntityManager manager;
 	private File baseDirectory;
-	private EntityManager manager;
 	static final Logger log = LoggerFactory.getLogger(IWFileManager.class);
 	
 	public IWFileManager(String basePath, EntityManager manager)

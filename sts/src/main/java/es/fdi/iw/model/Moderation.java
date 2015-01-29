@@ -1,5 +1,8 @@
 package es.fdi.iw.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +18,9 @@ import javax.persistence.Transient;
     @NamedQuery(name="moderationQueue",
         query="select m from Moderation m"),
     @NamedQuery(name="moderationById",
-        query="select m from Moderation m where m.id = :idParam")
+        query="select m from Moderation m where m.id = :idParam"),
+    @NamedQuery(name="moderationsByDate",
+    	query="select m from Moderation m order by m.date desc")
 })
 public class Moderation {
 	private long id;
@@ -23,6 +28,7 @@ public class Moderation {
 	private ModerationCategory category;
 	private File file;
 	private Post post;
+	private Date date;
 	
 	public Moderation(){}
 	
@@ -47,6 +53,8 @@ public class Moderation {
 			case DeleteFile:
 				m.category = ModerationCategory.File; break;
 		}
+		
+		m.date = new Date();
 		
 		return m;
 	}
@@ -88,6 +96,14 @@ public class Moderation {
 		this.post = post;
 	}
 	
+	public void setDate(Date d){
+		this.date=d;
+	}
+	
+	public Date getDate(){
+		return this.date;
+	}
+	
 	@Enumerated(EnumType.STRING)
 	public ModerationEvent getEvent() {
 		return event;
@@ -104,5 +120,10 @@ public class Moderation {
 		} else {
 			return null;
 		}
+	}
+	
+	@Transient 
+	public String getTimeStamp(){
+		return new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(date);
 	}
 }

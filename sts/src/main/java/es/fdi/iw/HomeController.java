@@ -3,6 +3,7 @@ package es.fdi.iw;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import util.IWEntityManager;
 import util.IWFileManager;
 import util.IWModerationManager;
+import es.fdi.iw.model.File;
 import es.fdi.iw.model.Moderation;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
@@ -129,11 +132,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/file/fileload", method = RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
-			@RequestParam("tags") String tags) {
+			@RequestParam("tags") String tags,
+			HttpSession session) {
 		es.fdi.iw.model.File file = ContextInitializer.getFileManager(entityManager)
-				.uploadFile(load, tags);
+				.uploadFile(load, tags, (User)session.getAttribute("user"));
 
 		if (file != null) {
 			entityManager.persist(file);
@@ -177,39 +181,24 @@ public class HomeController {
 	      response.flushBuffer();
 	}*/
 	
+	@ResponseBody
 	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET)
-	public void getFile(
-	    @PathVariable("id") long id, 
-	    HttpServletResponse response,
-	    HttpServletRequest request) throws IOException {
-
-	      
-		  File file = (File) entityManager.createNamedQuery("fileById")
-					 				 .setParameter("idParam", id)
-					 				 .getSingleResult(); 
+	public byte[] getFile(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+	 
+		  File file = IWEntityManager.get(entityManager).fileById(id);
 		  
-		  java.io.File f = ContextInitializer.getFileManager().getFile(file);
+		  java.io.File f = ContextInitializer.getFileManager(entityManager).getFile(file);
 		  
-		  java.io.File mimeFile = new java.io.File(file.getName()); 
-		  String mime = new MimetypesFileTypeMap().getContentType(mimeFile);
+		  InputStream in = new BufferedInputStream(new FileInputStream(f));
 		  
-		  if (mime == null) {
-	            // set to binary type if MIME mapping not found
-	            mime = "application/octet-stream";
-	       }
+		  response.setHeader("Content-Disposition", "attachment; filename=" + file.getName()); 
 		  
-	      InputStream in = null;
-	      // get your file as InputStream
-	      in = new BufferedInputStream(new FileInputStream(f));
-	     
-	      response.setContentType(mime);
-	      response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-	      
-	      
-	      // copy it to response's OutputStream
-	      org.apache.commons.io.IOUtils.copy(in, response.getOutputStream());
-
-	      //response.flushBuffer();
+		  String type = Files.probeContentType(f.toPath());
+		  if (type != null) {
+		     	response.setContentType(type);
+		  }
+		  
+	      return IOUtils.toByteArray(in);
 	}
 
 	/**
@@ -304,7 +293,7 @@ public class HomeController {
 	@Transactional
 	public String moderation(Locale locale, Model model) {
 		model.addAttribute("moderationQueue", 
-				           IWModerationManager.get(entityManager).moderationQueue());
+				           IWModerationManager.get(entityManager).moderationByDate());
 		
 		return "moderation";
 	}
