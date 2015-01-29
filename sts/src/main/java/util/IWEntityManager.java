@@ -59,8 +59,9 @@ public class IWEntityManager {
 		catch (NoResultException nre) {
 			if(post.getOwner() != user){
 				Vote vote = Vote.createVote(user, post, positive);
+			
+				post.addVote(vote);
 				
-				manager.persist(post);
 				manager.persist(vote);
 				
 				return vote;

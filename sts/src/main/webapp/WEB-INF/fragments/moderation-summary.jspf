@@ -5,13 +5,13 @@
 		<div class="question-text pull-left">
 			<h4>
 				<c:if test="${m.category == 'File'}">
-					<a href="/dev/null">File "${m.file.name}" by ${m.file.owner.login}</a>
+					<a href="${pageContext.request.contextPath}${m.file.uri}">File "${m.file.name}" by ${m.file.owner.login}</a>
 				</c:if>
 				<c:if test="${m.category == 'Thread'}">
-					<a href="/dev/null">Topic "${m.thread.title}" by ${m.post.owner.login}</a>
+					<a href="${pageContext.request.contextPath}${m.thread.uri}">Topic "${m.thread.title}" by ${m.post.owner.login}</a>
 				</c:if>
 				<c:if test="${m.category == 'Post'}">
-					<a href="/dev/null">Answer to "${m.thread.title}" by ${m.post.owner.login}</a>
+					<a href="${pageContext.request.contextPath}${m.post.uri}">Answer to "${m.thread.title}" by ${m.post.owner.login}</a>
 				</c:if>
 			</h4>
 			<span class="label label-default">${m.category}</span>

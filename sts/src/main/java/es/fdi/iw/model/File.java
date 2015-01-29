@@ -79,6 +79,12 @@ public class File {
 		this.deletePending = deletePending;
 	}
 	
+	@Transient
+	public String getUri()
+	{
+		return "file/download/id/" + getId();
+	}
+	
 	@Transient 
 	public String getTimeStamp(){
 		return new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(date);
