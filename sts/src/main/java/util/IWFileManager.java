@@ -80,10 +80,6 @@ public class IWFileManager
             return null;
         }
 	}
+
 	
-	public byte[] downloadFile(es.fdi.iw.model.File f) throws IOException {
-		File f = 
-		
-		
-	}
 }

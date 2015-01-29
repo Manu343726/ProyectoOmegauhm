@@ -1,15 +1,20 @@
 package es.fdi.iw;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -32,6 +37,9 @@ import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
 import es.fdi.iw.model.Vote;
+
+import java.io.FileInputStream;
+import java.io.BufferedInputStream;
 
 /**
  * Handles requests for the application home page.
@@ -136,24 +144,72 @@ public class HomeController {
 		return "redirect:/repository";
 	}
 	
-	/*@ResponseBody
-	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET)
-	public byte[] handleFileDownload(@PathVariable("id") long id) throws IOException {
-		File f = (File) entityManager.createNamedQuery("fileById")
-									 .setParameter("idParam", id)
-					  				 .getSingleResult();
-				
-		return ContextInitializer.getFileManager().downloadFile(f);
-	}*/
 	
-	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	
+	/*@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public FileSystemResource getFile(@PathVariable("id") long id) throws IOException {
 		File f = (File) entityManager.createNamedQuery("fileById")
 				 .setParameter("idParam", id)
  				 .getSingleResult(); 
 		
-	    return new FileSystemResource(ContextInitializer.getFileManager().getFile(f)); 
+	    return new FileSystemResource(ContextInitializer.getFileManager().getFile(f));
+		
+	}*/
+	
+	/*@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void getFile(
+	    @PathVariable("id") long id, 
+	    HttpServletResponse response) throws IOException {
+
+	      // get your file as InputStream
+		  File file = (File) entityManager.createNamedQuery("fileById")
+					 				 .setParameter("idParam", id)
+					 				 .getSingleResult(); 
+		  java.io.File f = ContextInitializer.getFileManager().getFile(file);
+		  
+	      InputStream in = null;
+	      in = new BufferedInputStream(new FileInputStream(f));
+	      
+	      // copy it to response's OutputStream
+	      org.apache.commons.io.IOUtils.copy(in, response.getOutputStream());
+	      response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+	      response.flushBuffer();
+	}*/
+	
+	@RequestMapping(value = "/file/download/{id}", method = RequestMethod.GET)
+	public void getFile(
+	    @PathVariable("id") long id, 
+	    HttpServletResponse response,
+	    HttpServletRequest request) throws IOException {
+
+	      
+		  File file = (File) entityManager.createNamedQuery("fileById")
+					 				 .setParameter("idParam", id)
+					 				 .getSingleResult(); 
+		  
+		  java.io.File f = ContextInitializer.getFileManager().getFile(file);
+		  
+		  java.io.File mimeFile = new java.io.File(file.getName()); 
+		  String mime = new MimetypesFileTypeMap().getContentType(mimeFile);
+		  
+		  if (mime == null) {
+	            // set to binary type if MIME mapping not found
+	            mime = "application/octet-stream";
+	       }
+		  
+	      InputStream in = null;
+	      // get your file as InputStream
+	      in = new BufferedInputStream(new FileInputStream(f));
+	     
+	      response.setContentType(mime);
+	      response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+	      
+	      
+	      // copy it to response's OutputStream
+	      org.apache.commons.io.IOUtils.copy(in, response.getOutputStream());
+
+	      //response.flushBuffer();
 	}
 
 	/**
@@ -358,13 +414,6 @@ public class HomeController {
 		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 		
 		System.err.println(vote);
-		
-		/*if(vote == null) {
-			System.err.println("NO SE PUEDE VOTAR");
-			return "redirect: 401";
-		}
-		else
-			return "redirect:/" + vote.getPost().getUri();*/
 		
 		return "redirect:/" + post.getUri();
 	}

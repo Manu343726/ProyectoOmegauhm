@@ -45,23 +45,6 @@ public class IWEntityManager {
 
 	public Vote votePost(Post post, User user, boolean positive) {
 		
-		/*try {
-			Vote v = null;
-			v = voteByUserAndPost(user.getId(), post.getId());	
-		}
-		catch (NoResultException nre) {
-			if(post.getOwner() != user){
-				Vote vote = Vote.createVote(user, post, positive);
-				
-				manager.persist(vote);
-				
-				return vote;
-			} 
-			else
-				return null;
-		}
-		return null;*/
-		
 		List<Vote> votes;
 		votes = votesByUserAndPost(user.getId(), post.getId());
 		
