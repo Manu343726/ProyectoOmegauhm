@@ -32,7 +32,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.IWEntityManager;
-import es.fdi.iw.model.File;
+import util.IWFileManager;
+import util.IWModerationManager;
+import es.fdi.iw.model.Moderation;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.User;
@@ -72,7 +74,7 @@ public class HomeController {
 		User u = null;
 		try {
 			
-			u = new IWEntityManager(entityManager).userByLogin(formLogin);
+			u = IWEntityManager.get(entityManager).userByLogin(formLogin);
 
 			if (u.isPassValid(formPass)) {
 				logger.info("pass was valid");
@@ -98,7 +100,7 @@ public class HomeController {
 		String formPass = request.getParameter("pass");
 		logger.info("Register attempt from '{}'", formLogin);
 
-		IWEntityManager manager = new IWEntityManager(entityManager);
+		IWEntityManager manager = IWEntityManager.get(entityManager);
 
 		User u = null;
 
@@ -127,13 +129,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/file/fileload", method = RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public @ResponseBody String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
-			@RequestParam("tags") String tags,
-			HttpSession session) {
-
-			File file = ContextInitializer.getFileManager()
-				.uploadFile(load, tags, (User)session.getAttribute("user"));
+			@RequestParam("tags") String tags) {
+		es.fdi.iw.model.File file = ContextInitializer.getFileManager(entityManager)
+				.uploadFile(load, tags);
 
 		if (file != null) {
 			entityManager.persist(file);
@@ -229,24 +229,26 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("pageTitle", "Bienvenido a IW");
 
-		IWEntityManager manager = new IWEntityManager(entityManager);
+		IWEntityManager manager = IWEntityManager.get(entityManager);
 		
 		// Mocking
 		if (manager.topicsByDate().size() <= 0) {
 			
-			int threads = 10;
-			int answers_per_thread = 10;
+			int threads = 3;
+			int answers_per_thread = 3;
 
 			logger.info("Mocking up DB...");
 
 			for (int i = 0; i < threads; ++i) {
-				Topic topic = manager.newTopic("user", "T�tulo pregunta " + i,
+				Topic topic = manager.newTopic("user", "Título pregunta " + i,
 						"Texto pregunta " + i, "tag1 tag2 tag3");
 
 				for (int j = 0; j < answers_per_thread; ++j)
 					manager.answerQuestion(topic, "Texto respuesta " + i + "."
 							+ j, "admin");
 			}
+			
+			
 		}
 
 		List<Topic> threads = manager.topicsByDate();
@@ -285,7 +287,7 @@ public class HomeController {
 	@RequestMapping(value = "/forum", method = RequestMethod.GET)
 	public String forum(Locale locale, Model model) {
 		logger.info("ENTRANDO AL FORO");
-		IWEntityManager manager = new IWEntityManager(entityManager); 
+		IWEntityManager manager = IWEntityManager.get(entityManager); 
 		List<Topic> threadsOrderedByDate = manager.topicsByDate();
 		List<Topic> threadsOrderedByViews = manager.topicsByViews();
 		
@@ -298,9 +300,13 @@ public class HomeController {
 	/**
 	 * 
 	 */
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(Locale locale, Model model) {
-		return "admin";
+	@RequestMapping(value = "/moderation", method = RequestMethod.GET)
+	@Transactional
+	public String moderation(Locale locale, Model model) {
+		model.addAttribute("moderationQueue", 
+				           IWModerationManager.get(entityManager).moderationQueue());
+		
+		return "moderation";
 	}
 
 	@RequestMapping(value = "/file/select", method = RequestMethod.GET)
@@ -361,8 +367,7 @@ public class HomeController {
 		if (user == null)
 			return "404";
 		
-		IWEntityManager manager = new IWEntityManager(entityManager);
-		manager.newTopic(user, formTitle, formText, formTags);
+		IWEntityManager.get(entityManager).newTopic(user, formTitle, formText, formTags);
 
 		return "redirect:/forum";
 	}
@@ -376,7 +381,7 @@ public class HomeController {
 			@PathVariable("title") String title, HttpSession session,
 			HttpServletRequest request) {
 		
-		Topic topic = new IWEntityManager(entityManager).topicById(id);
+		Topic topic = IWEntityManager.get(entityManager).topicById(id);
 
 		topic.setViewsCount(topic.getViewsCount() + 1);
 
@@ -409,13 +414,51 @@ public class HomeController {
 		if (!this.isLogged(session))
 			return "401"; // go fuck yourself
 		
-		Post post = new IWEntityManager(entityManager).postById(id);
+		Post post = IWEntityManager.get(entityManager).postById(id);
 
-		Vote vote = new IWEntityManager(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
+		Vote vote = IWEntityManager.get(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 		
 		System.err.println(vote);
 		
 		return "redirect:/" + post.getUri();
 	}
-
+	
+	@Transactional
+	@RequestMapping(value = "/moderation/dimiss/{id}", method = RequestMethod.GET)
+	public String dimissModerationEvent(@PathVariable("id") long id, HttpSession session,
+			HttpServletRequest request) {
+		
+		if(isLogged(session)) {		
+			IWModerationManager.ModerationResult  result = IWModerationManager.get(entityManager)
+					.dimissEvent(id, (User)session.getAttribute("user"));
+			
+			session.setAttribute("moderationResult", result);
+			session.setAttribute("moderationQueue", 
+			           IWModerationManager.get(entityManager).moderationQueue());
+	
+			return "moderation";
+		}
+		else
+			return "redirect:/login";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/moderation/accept/{id}", method = RequestMethod.GET)
+	public String acceptModerationEvent(@PathVariable("id") long id, HttpSession session,
+			HttpServletRequest request) {
+		
+		if(isLogged(session)) {
+			IWModerationManager.ModerationResult result = IWModerationManager.get(entityManager)
+					.acceptModeration(ContextInitializer.getFileManager(entityManager),
+	            		         	  id, (User)session.getAttribute("user"));
+			
+			session.setAttribute("moderationResult", result);
+			session.setAttribute("moderationQueue", 
+			           IWModerationManager.get(entityManager).moderationQueue());
+	
+			return "redirect:/moderation";	
+		}
+		else
+			return "redirect:/login";
+	}
 }

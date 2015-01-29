@@ -17,16 +17,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.fdi.iw.ContextInitializer;
 import es.fdi.iw.model.User;
-
 
 public class IWFileManager 
 {
 	private EntityManager manager;
 	private File baseDirectory;
+	private EntityManager manager;
 	static final Logger log = LoggerFactory.getLogger(IWFileManager.class);
 	
-	public IWFileManager(String basePath)
+	public IWFileManager(String basePath, EntityManager manager)
 	{
 		baseDirectory = new File(basePath);
 		log.info("base directory is {}", baseDirectory.getAbsolutePath());
@@ -38,6 +39,8 @@ public class IWFileManager
     			log.error("{} could not be created -- check permissions", baseDirectory);        			
     	else
     		log.info("using already-existing base folder :-)");
+		
+		this.manager = manager;
 	}
 	
 	public String getFilePath(es.fdi.iw.model.File file)
@@ -49,14 +52,22 @@ public class IWFileManager
 	{
 		File f = new File(getFilePath(file));
 		
-		f.createNewFile(); //See the docs, just returns false if the file already exists
+		f.createNewFile(); //See the docs, just returns false if the file already exists	
 		
 		return f;
 	}
 	
-	public void deleteFile(es.fdi.iw.model.File file) throws IOException
+	public void deleteFile(es.fdi.iw.model.File file) 
 	{
-		getFile(file).delete();
+		//An user has no direct rights to delete a file, just queue this event
+		IWModerationManager.get(manager).moderateDeleteFile(file);
+	}
+	
+	public void trueDeleteFile(es.fdi.iw.model.File file, User moderator) throws IOException {
+		if(moderator.getRole() == "admin") {
+			getFile(file).delete();
+			manager.remove(file);
+		}
 	}
 	
 	public es.fdi.iw.model.File uploadFile(MultipartFile load, String tags, User owner)
@@ -71,6 +82,10 @@ public class IWFileManager
                         		new FileOutputStream(getFile(file)));
                 stream.write(bytes);
                 stream.close();
+                
+                manager.persist(file);
+                
+                IWModerationManager.get(manager).moderateNewFile(file);
                 
                 return file;
             } catch (Exception e) {

@@ -139,7 +139,7 @@ public class Topic {
 	}
 	
 	@Transient
-	public String getURI()
+	public String getUri()
 	{
 		return "topic/" + getId() + "/" + getTitle();
 	}

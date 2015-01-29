@@ -37,6 +37,9 @@
           <div class="nav navbar-right">
           		<c:choose>
           			<c:when test="${not empty user}">
+	          			<c:if test="${user.role == 'admin'}">
+	          				<p class="navbar-text"><a href="${pageContext.request.contextPath}/moderation">Moderate</a></p>
+	          			</c:if>	
           				<p class="navbar-text navbar-right">${user.login} (<a href="${pageContext.request.contextPath}/logout">Salir</a>)</p>
           			</c:when>
           			<c:otherwise>

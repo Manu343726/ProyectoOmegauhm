@@ -121,7 +121,7 @@ public class Post {
 	@Transient
 	public String getUri()
 	{
-		return getThread().getURI() + "/#" + getId();
+		return getThread().getUri() + "/#" + getId();
 	}
 	
 	public void addVote(Vote v) {

@@ -25,6 +25,7 @@ public class File {
 	private Date date;
 	private String tags;
 	private User owner;
+	private boolean deletePending; //File deletion event is on moderation queue, an user has no direct rights to delete a file
 
 	public File() {
 	}
@@ -35,11 +36,11 @@ public class File {
 		f.date = new Date(); //RTFM, is initialized to the time of allocation
 		f.tags = tags;
 		f.owner = owner;
+		f.deletePending = false;
 	
 		return f;
 	}
 
-	
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -73,7 +74,7 @@ public class File {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-	
+
 	@ManyToOne(targetEntity=User.class)
 	public User getOwner() {
 		return owner;
@@ -81,6 +82,19 @@ public class File {
 	
 	public void setOwner(User owner) {
 		this.owner = owner;
+
+	public boolean getDeletePending() {
+		return deletePending;
+	}
+
+	public void setDeletePending(boolean deletePending) {
+		this.deletePending = deletePending;
+	}
+	
+	@Transient
+	public String getUri()
+	{
+		return "file/download/id/" + getId();
 	}
 	
 	@Transient 

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
@@ -30,8 +32,6 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     	try 
     	{
     		props.load(getClass().getResourceAsStream("/app.properties")); 
-    		
-    		fileManager = new IWFileManager(getProperty("base"));
     	} catch (IOException ioe) 
     	{
     		log.error("Could not read properties file! No base directory!", ioe);
@@ -45,8 +45,8 @@ public class ContextInitializer implements ApplicationContextInitializer<Configu
     	return props.getProperty(key);
     }
     
-    public static IWFileManager getFileManager()
+    public static IWFileManager getFileManager(EntityManager manager)
     {
-    	return fileManager;
+    	return new IWFileManager(getProperty("base"), manager);
     }
 }

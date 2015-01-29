@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import javassist.NotFoundException;
+import es.fdi.iw.model.File;
+import es.fdi.iw.model.Moderation;
+import es.fdi.iw.model.ModerationEvent;
 import es.fdi.iw.model.Post;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.User;
@@ -15,8 +18,12 @@ import es.fdi.iw.model.Vote;
 public class IWEntityManager {
 	private EntityManager manager;
 
-	public IWEntityManager(EntityManager manager) {
+	private IWEntityManager(EntityManager manager) {
 		this.manager = manager;
+	}
+	
+	public static IWEntityManager get(EntityManager manager) {
+		return new IWEntityManager(manager);
 	}
 	
 	/**************************** USER ****************************/
@@ -29,7 +36,7 @@ public class IWEntityManager {
 	}
 
 	public User newUser(String login, String email, String password) {
-		User user = User.createUser(login, password, "user", email);
+		User user = User.createUser(login, password, "admin", email);
 		manager.persist(user);
 
 		return user;
@@ -72,6 +79,8 @@ public class IWEntityManager {
 
 		manager.persist(post);
 		manager.persist(topic);
+		
+		IWModerationManager.get(manager).moderateNewAnswer(post);
 
 		return post;
 	}
@@ -79,6 +88,8 @@ public class IWEntityManager {
 	public Post answerQuestion(long topic_id, String text, String login) {
 		return answerQuestion(topicById(topic_id), text, login);
 	}
+	
+	
 
 	/**************************** TOPIC ****************************/
 	/***************************************************************/
@@ -106,6 +117,8 @@ public class IWEntityManager {
 
 		manager.persist(question);
 		manager.persist(thread);
+		
+		IWModerationManager.get(manager).moderateNewTopic(thread);
 
 		return thread;
 	}
@@ -124,5 +137,4 @@ public class IWEntityManager {
 							 	   .setParameter("postIdParam", postId)
 							       .getResultList();
 	}
-
 }
