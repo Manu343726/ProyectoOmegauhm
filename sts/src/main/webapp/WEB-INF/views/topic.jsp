@@ -21,14 +21,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-<link
-	href="${pageContext.request.contextPath}/resources/css/questions.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/activities.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/extra.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/questions.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/activities.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/extra.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/post-view.css" rel="stylesheet">
 
 </head>
 <body>
@@ -44,11 +40,16 @@
 			</div>
 		</div>
 		
-		<c:if test="${not empty user}">
-			<a href="401">
-				<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
-			</a>
-		</c:if>
+		<c:choose>
+			<c:when test="${not empty user}">
+				<a href="answer">
+					<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
+				</a>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder responder</button>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>

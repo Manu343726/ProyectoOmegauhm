@@ -71,6 +71,19 @@ public class IWEntityManager {
 		return votePost(postById(postId), user, positive);
 	}
 
+	public Post answerQuestion(Topic topic, String text, User user) {
+		Post post = Post.createPost(text, user);
+		
+		topic.addAnswer(post);
+
+		manager.persist(post);
+		manager.persist(topic);
+		
+		IWModerationManager.get(manager).moderateNewAnswer(post);
+
+		return post;
+	}
+	
 	public Post answerQuestion(Topic topic, String text, String login) {
 		User user = userByLogin(login);
 		Post post = Post.createPost(text, user);
@@ -85,8 +98,8 @@ public class IWEntityManager {
 		return post;
 	}
 
-	public Post answerQuestion(long topic_id, String text, String login) {
-		return answerQuestion(topicById(topic_id), text, login);
+	public Post answerQuestion(long topic_id, String text, User user) {
+		return answerQuestion(topicById(topic_id), text, user);
 	}
 	
 	

@@ -49,13 +49,11 @@
 				<c:choose>
 					<c:when test="${not empty user}">
 						<a href="publication">
-							<button type="button" class="btn btn-primary btn-lg btn-block">Haz
-								una pregunta</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block">Haz una pregunta</button>
 						</a>
 					</c:when>
 					<c:otherwise>
-						<button type="button" class="btn btn-primary btn-lg btn-block"
-							disabled="disabled">
+						<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">
 							Necesitas estas logueado para hacer <br> una pregunta
 						</button>
 					</c:otherwise>

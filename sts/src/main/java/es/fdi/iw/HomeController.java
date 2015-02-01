@@ -335,6 +335,17 @@ public class HomeController {
 		else
 			return "redirect:/";
 	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/answer", method = RequestMethod.GET)
+	public String answer(Locale locale, Model model, HttpSession session) {
+		if (isLogged(session))
+			return "answer";
+		else
+			return "redirect:/";
+	}
 
 	/**
 	 * 
@@ -363,6 +374,22 @@ public class HomeController {
 			return "404";
 		
 		IWEntityManager.get(entityManager).newTopic(user, formTitle, formText, formTags);
+
+		return "redirect:/forum";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/newanswer", method = RequestMethod.POST)
+	public String newanswer(HttpServletRequest request, Model model,
+			HttpSession session) {
+		String formText = request.getParameter("text");
+		
+		User user = (User) session.getAttribute("user");
+
+		if (user == null)
+			return "404";
+		
+		//IWEntityManager.get(entityManager).answerQuestion(long topic_id, formText, user);
 
 		return "redirect:/forum";
 	}
