@@ -45,6 +45,15 @@ public class User {
 		return u;
 	}
 	
+	public boolean equals(Object o) {
+		if (o == null) return false;
+	    if (o == this) return true;
+	    if (!(o instanceof User))return false;
+	    User other = (User)o;
+	    
+	    return other.id == id;
+	}
+	
 	public boolean isPassValid(String pass) {
 		return generateHashedAndSalted(pass, this.salt).equals(hashedAndSalted);		
 	}

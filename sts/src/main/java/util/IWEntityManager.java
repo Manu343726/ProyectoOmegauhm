@@ -11,6 +11,7 @@ import es.fdi.iw.model.File;
 import es.fdi.iw.model.Moderation;
 import es.fdi.iw.model.ModerationEvent;
 import es.fdi.iw.model.Post;
+import es.fdi.iw.model.PostType;
 import es.fdi.iw.model.Topic;
 import es.fdi.iw.model.User;
 import es.fdi.iw.model.Vote;
@@ -49,13 +50,31 @@ public class IWEntityManager {
 		return (Post) manager.createNamedQuery("postById")
 				.setParameter("idParam", id).getSingleResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Post> postsByUserAndTopic(long userId, long topicId) {
+		return (List<Post>) manager.createNamedQuery("postsByUserAndTopic")
+							 	   .setParameter("userIdParam", userId)
+							 	   .setParameter("topicIdParam", topicId)
+							       .getResultList();
+	}
+	
+	public boolean userHasAnswer(long userId, long topicId) {
+		List<Post> userPosts = postsByUserAndTopic(userId, topicId);
+		
+		if(userPosts.isEmpty())
+			return false;
+		else if(userPosts.size() == 1)
+			return userPosts.get(0).getType() == PostType.ANSWER;
+		else
+			return true; //Si hay dos al menos uno es una respuesta
+	}
 
 	public Vote votePost(Post post, User user, boolean positive) {
 		
-		List<Vote> votes;
-		votes = votesByUserAndPost(user.getId(), post.getId());
+		List<Vote> votes = votesByUserAndPost(user.getId(), post.getId());
 		
-		if(votes.isEmpty() && post.getOwner() != user) {
+		if(votes.isEmpty() && !post.getOwner().equals(user)) {
 			Vote vote = Vote.createVote(user, post, positive);
 			
 			manager.persist(vote);
@@ -72,30 +91,24 @@ public class IWEntityManager {
 	}
 
 	public Post answerQuestion(Topic topic, String text, User user) {
-		Post post = Post.createPost(text, user);
-		
-		topic.addAnswer(post);
-
-		manager.persist(post);
-		manager.persist(topic);
-		
-		IWModerationManager.get(manager).moderateNewAnswer(post);
-
-		return post;
+		if(!userHasAnswer(user.getId(), topic.getId())) {
+			Post post = Post.createPost(text, user);
+			
+			topic.addAnswer(post);
+	
+			manager.persist(post);
+			manager.persist(topic);
+			
+			IWModerationManager.get(manager).moderateNewAnswer(post);
+	
+			return post;
+		}
+		else
+			return null;
 	}
 	
 	public Post answerQuestion(Topic topic, String text, String login) {
-		User user = userByLogin(login);
-		Post post = Post.createPost(text, user);
-		
-		topic.addAnswer(post);
-
-		manager.persist(post);
-		manager.persist(topic);
-		
-		IWModerationManager.get(manager).moderateNewAnswer(post);
-
-		return post;
+		return answerQuestion(topic, text, userByLogin(login));
 	}
 
 	public Post answerQuestion(long topic_id, String text, User user) {

@@ -7,7 +7,7 @@
     <title>Proyecto OHM</title>
 
     <!-- Bootstrap -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -18,7 +18,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<link href="resources/css/extra.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/css/extra.css" rel="stylesheet">
 	
   </head>
 <body>

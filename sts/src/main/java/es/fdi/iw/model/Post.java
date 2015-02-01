@@ -25,7 +25,9 @@ import javax.persistence.Transient;
 @Entity
 @NamedQueries({
     @NamedQuery(name="postById",
-        query="select p from Post p where p.id = :idParam")
+        query="select p from Post p where p.id = :idParam"),
+    @NamedQuery(name="postsByUserAndTopic",
+	query="select p from Post p join p.owner u join p.thread t where u.id = :userIdParam and t.id = :topicIdParam")
 })
 public class Post {
 	
