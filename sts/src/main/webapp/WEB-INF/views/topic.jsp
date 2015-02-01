@@ -42,7 +42,7 @@
 		
 		<c:choose>
 			<c:when test="${not empty user}">
-				<a href="answer">
+				<a href="${pageContext.request.contextPath}/answer/${topic_id}">
 					<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
 				</a>
 			</c:when>

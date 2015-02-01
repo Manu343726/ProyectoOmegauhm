@@ -339,10 +339,14 @@ public class HomeController {
 	/**
 	 * 
 	 */
-	@RequestMapping(value = "/answer", method = RequestMethod.GET)
-	public String answer(Locale locale, Model model, HttpSession session) {
-		if (isLogged(session))
+	@RequestMapping(value = "/answer/{id}", method = RequestMethod.GET)
+	public String answer(Locale locale, Model model, HttpSession session,
+		   @PathVariable("id") long id) {
+		if (isLogged(session)) {
+			session.setAttribute("topic_id", id);
+			
 			return "answer";
+		}
 		else
 			return "redirect:/";
 	}
@@ -379,9 +383,10 @@ public class HomeController {
 	}
 	
 	@Transactional
-	@RequestMapping(value = "/newanswer", method = RequestMethod.POST)
+	@RequestMapping(value = "/newanswer/{id}", method = RequestMethod.POST)
 	public String newanswer(HttpServletRequest request, Model model,
-			HttpSession session) {
+			HttpSession session,
+			@PathVariable("id") long id) {
 		String formText = request.getParameter("text");
 		
 		User user = (User) session.getAttribute("user");
@@ -389,7 +394,7 @@ public class HomeController {
 		if (user == null)
 			return "404";
 		
-		//IWEntityManager.get(entityManager).answerQuestion(long topic_id, formText, user);
+		IWEntityManager.get(entityManager).answerQuestion(id, formText, user);
 
 		return "redirect:/forum";
 	}
@@ -412,6 +417,7 @@ public class HomeController {
 		// Workaround to hibernate lazy initialization issue
 		session.setAttribute("topic_question", topic.getQuestion());
 		session.setAttribute("topic_posts", topic.getPosts());
+		session.setAttribute("topic_id", topic.getId());
 		session.setAttribute("topic_asker", topic.getQuestion().getOwner());
 
 		// Some logging for logging purposes and to force lazy initialization of

@@ -30,10 +30,10 @@
   		<div class="row">
     		<div class="form col-md-8 col-md-offset-2">
     		
-    			<form role="form" action="newanswer" id="formularioNewAnswer" method="POST">
+    			<form role="form" action="${pageContext.request.contextPath}/newanswer/${topic_id}" id="formularioNewAnswer" method="POST">
 	    			<h2 class="form-heading">Responder</h2>
 	    			<textarea type="text" class="form-control" rows="5" placeholder="Texto" id="text" name="text" required autofocus></textarea><br>
-	    			<button class="btn btn-info pull-right" name="submit" value="newpost" type="submit">Enviar</button>
+	    			<button class="btn btn-info pull-right" name="submit" value="${pageContext.request.contextPath}/newanswer/${topic_id}" type="submit">Enviar</button>
     			</form>
     			
     		</div>
