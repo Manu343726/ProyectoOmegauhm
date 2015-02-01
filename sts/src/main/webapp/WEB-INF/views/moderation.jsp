@@ -50,12 +50,7 @@
 							</c:forEach>
 						</div>
 					</div>
-				</div>
-			</div>
-			<!-- forum-tab-content -->
 		</div>
-		<!-- content -->
 	</div>
-	<!-- CONTAINER -->
 
 	<%@ include file="../fragments/footer.jspf"%>

@@ -243,6 +243,12 @@ public class HomeController {
 		List<Topic> threads = manager.topicsByDate();
 		System.err.println(threads.size());
 		model.addAttribute("threads", threads);
+		
+		@SuppressWarnings("unchecked")
+		List<File> filesOrderedByDate = (List<File>) entityManager.createNamedQuery("filesByDate")
+					  .getResultList();
+
+		model.addAttribute("filesOrderedByDate", filesOrderedByDate);
 
 		return "home";
 	}

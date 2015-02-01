@@ -20,6 +20,7 @@
     <![endif]-->
 
 <link href="resources/css/questions.css" rel="stylesheet">
+<link href="resources/css/files.css" rel="stylesheet">
 <link href="resources/css/activities.css" rel="stylesheet">
 <link href="resources/css/extra.css" rel="stylesheet">
 
@@ -70,47 +71,15 @@
 						<h1 class="panel-title">Última Actividad</h1>
 					</div>
 					<div class="panel panel-body">
-
-						<div class="activity-summary pull-left">
-							<div class="activity-stats pull-left">
-								<div class="pull-left a-type">
-									<div class="mini-counts">
-										<span title="type">t</span>
-									</div>
-									<div>type</div>
-								</div>
-								<div class="pull-left a-votes">
-									<div class="mini-counts">
-										<span title="0 votes">0</span>
-									</div>
-									<div>answers</div>
-								</div>
-								<div class="pull-left a-views">
-									<div class="mini-counts">
-										<span title="0 views">0</span>
-									</div>
-									<div>views</div>
-								</div>
-							</div>
-							<!-- activity-stats -->
-
-
-							<div class="activity-text pull-left">
-								<h4>Título Pregunta</h4>
-								<div class="btn-group tags pull-left">
-									<button type="button" class="btn btn-xs">Tag1</button>
-									<button type="button" class="btn btn-xs">Tag2</button>
-									<button type="button" class="btn btn-xs">Tag3</button>
-									<button type="button" class="btn btn-xs">Tag4</button>
-								</div>
-								<div class="started pull-right">
-									<a>Started</a>
-								</div>
-							</div>
-							<!-- activity-text -->
-						</div>
-						<!-- activity-summary -->
-
+						<c:forEach items="${filesOrderedByDate}" var="f">
+							<jsp:include page="../fragments/file-summary.jsp">
+								<jsp:param name="id" value="${f.id}" />
+								<jsp:param name="name" value="${f.name}"/>
+								<jsp:param name="date" value="${f.timeStamp}" />
+								<jsp:param name="tags" value="${f.tags}" />
+								<jsp:param name="owner" value="${f.owner}" />
+							</jsp:include>
+						</c:forEach>
 					</div>
 					<!-- panel-body -->
 				</div>

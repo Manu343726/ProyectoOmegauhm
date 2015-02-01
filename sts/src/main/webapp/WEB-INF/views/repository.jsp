@@ -19,6 +19,7 @@
     <![endif]-->
 
     <link href="resources/css/extra.css" rel="stylesheet">
+    <link href="resources/css/files.css" rel="stylesheet">
 
   </head>
 <body>
@@ -29,32 +30,37 @@
 			<div class="row">
 				<div class="col-md-4 col-md-offset-4">
 					<c:choose>
-					<c:when test="${not empty user}">
-						<a href="${pageContext.request.contextPath}/file/select">
-							<button type="button" class="btn btn-primary btn-lg btn-block">Sube tus apuntes</button>
-						</a>
-					</c:when>
-					<c:otherwise>
-						<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder <br> subir archivos</button>
-					</c:otherwise>
-				</c:choose>
+						<c:when test="${not empty user}">
+							<a href="${pageContext.request.contextPath}/file/select">
+								<button type="button" class="btn btn-primary btn-lg btn-block">Sube tus apuntes</button>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder <br> subir archivos</button>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>	
 			
 
 			<br>
-			<div id="repository-content">	
-				<ul class="list-group">
-					<c:forEach items="${filesOrderedByDate}" var="f">
-						<jsp:include page="../fragments/file-summary.jsp">
-							<jsp:param name="id" value="${f.id}" />
-							<jsp:param name="name" value="${f.name}"/>
-							<jsp:param name="date" value="${f.timeStamp}" />
-							<jsp:param name="tags" value="${f.tags}" />
-							<jsp:param name="owner" value="${f.owner}" />
-						</jsp:include>
-					</c:forEach>
-				</ul>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel panel-body">
+							<c:forEach items="${filesOrderedByDate}" var="f">
+								<jsp:include page="../fragments/file-summary.jsp">
+									<jsp:param name="id" value="${f.id}" />
+									<jsp:param name="name" value="${f.name}"/>
+									<jsp:param name="date" value="${f.timeStamp}" />
+									<jsp:param name="tags" value="${f.tags}" />
+									<jsp:param name="owner" value="${f.owner}" />
+								</jsp:include>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 			</div>
 </div>
 
