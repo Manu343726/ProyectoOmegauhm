@@ -1,0 +1,5 @@
+	
+   <!-- Include all compiled plugins (below), or include individual files as needed -->
+   <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+</body>
+</html>

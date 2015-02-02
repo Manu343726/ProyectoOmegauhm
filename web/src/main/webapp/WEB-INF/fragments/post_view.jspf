@@ -1,0 +1,50 @@
+<!-- Se supone que hay una variable "post" y "topic" en la sesión (Directamente de la sessión o de un foreach) -->
+
+<div class="panel panel-default" id=${post.id}> <!-- ancla a post -->
+	<div class="panel panel-body"> 
+		<!-- anchor to answer -->
+
+		<div class="row">
+			<div class="col-md-2">
+				<div class="row">
+					<a href="${pageContext.request.contextPath}/vote/${post.id}/1">
+						<button type="button" class="btn btn-default btn-sl"
+							id="voting_button">
+							<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+						</button>
+					</a>
+				</div>
+				<div class="row">
+					<a href="${pageContext.request.contextPath}/vote/${post.id}/-1">
+						<button type="button" class="btn btn-default btn-sl"
+							id="voting_button">
+							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+						</button>
+					</a>
+				</div>
+				<div class="row">
+					<span class="label label-default">${post.votesCount} points</span>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				${post.text}
+			</div>
+		</div>
+		<div class="row">------------------------</div>
+		<div class="row">
+				<c:if test="${post.type == 'QUESTION'}">
+					<div class="col-md-4">
+						<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- lib para el forTokens -->
+						<c:forTokens items="${topic.tags}" delims=" " var="name">
+							<span class="label label-default">${name}</span>
+						</c:forTokens>
+					</div>
+				</c:if>
+				<div class="col-md-2">
+					By ${post.owner.login}
+				</div>
+			</div>
+	</div>
+</div>
+

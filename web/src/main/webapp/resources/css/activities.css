@@ -1,0 +1,28 @@
+.activity-summary {
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid #A0A0A0;
+}
+.activity-summary .a-votes {
+  padding: 5px;
+}
+.activity-summary .a-type {
+  padding: 5px;
+}
+
+.activity-summary .a-views {
+  padding: 5px;
+}
+.mini-counts {
+  height: 25px;
+  font-size: 160%;
+  font-weight: normal;
+}
+.activity-stats {
+  text-align: center;
+  width: 30%;
+}
+.activity-text {
+  text-align: left;
+  width: 70%;
+}

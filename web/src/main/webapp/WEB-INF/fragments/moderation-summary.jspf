@@ -1,0 +1,28 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<div class="question-summary pull-left">
+	<div class="row">
+		<div class="question-text pull-left">
+			<h4>
+				<c:if test="${m.category == 'File'}">
+					<a href="${pageContext.request.contextPath}/${m.file.uri}">File "${m.file.name}" by ${m.file.owner.login}</a>
+				</c:if>
+				<c:if test="${m.category == 'Thread'}">
+					<a href="${pageContext.request.contextPath}/${m.thread.uri}">Topic "${m.thread.title}" by ${m.post.owner.login}</a>
+				</c:if>
+				<c:if test="${m.category == 'Post'}">
+					<a href="${pageContext.request.contextPath}/${m.post.uri}">Answer to "${m.thread.title}" by ${m.post.owner.login}</a>
+				</c:if>
+			</h4>
+			<span class="label label-default">${m.category}</span>
+			<span class="label label-default">${m.event}</span>		
+			<a>${m.timeStamp}</a>
+			
+			<div class="started pull-right">
+				<span class="label label-success"><a href="${pageContext.request.contextPath}/moderation/accept/${m.id}">Accept</a></span>
+				<span class="label label-danger"><a href="${pageContext.request.contextPath}/moderation/dimiss/${m.id}">Dimiss</a></span>
+			</div>
+		</div> <!-- question-text -->
+	</div>
+	
+</div> <!-- question-summary -->
