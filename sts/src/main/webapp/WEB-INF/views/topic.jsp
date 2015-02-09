@@ -37,19 +37,20 @@
 				<c:forEach items="${topic_posts}" var="post">
 					<%@ include file="../fragments/post_view.jspf"%>
 				</c:forEach>
+				
+				
+				<c:choose>
+					<c:when test="${not empty user}">
+						<a href="${pageContext.request.contextPath}/answer/${topic_id}">
+							<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder responder</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
-		</div>
-		
-		<c:choose>
-			<c:when test="${not empty user}">
-				<a href="${pageContext.request.contextPath}/answer/${topic_id}">
-					<button type="button" class="btn btn-primary btn-lg btn-block">Responder</button>
-				</a>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Necesitas estas logueado para poder responder</button>
-			</c:otherwise>
-		</c:choose>
+		</div>	
 	</div>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/split_tags.js"></script>
