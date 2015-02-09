@@ -26,6 +26,57 @@
 <link href="${pageContext.request.contextPath}/resources/css/extra.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/post-view.css" rel="stylesheet">
 
+<script type="text/javascript">
+	
+
+
+
+
+	$(function()
+	{
+		alert("Hello!!!");
+		$(".voting_button_up").click(function()
+		{
+			alert("hello!!!");
+
+			trigger_vote($(this).attr('id').split('_')[1], 1);
+		})
+
+		$("[class^='voting_button_down']").click(function()
+		{
+			trigger_vote($(this).attr('id').split('_')[1], -1);
+		})
+	})
+
+	function trigger_vote(postid, vote)
+	{
+		var target = $(this);
+
+/*
+		$.post("${pageContext.request.contextPath}/vote/" + postid + "/" + vote, function(post_data){
+			print_vote(post_data, postid);
+		});
+*/
+
+		$.ajax(
+		{
+			dataType: json,
+			type: "POST",
+			url: "${pageContext.request.contextPath}/vote/" + postid + "/" + vote,
+			data: "Let's waste some bandwith since the id is passed within the url",
+			success: function(post_data)
+			{
+				print_vote(post_data, postid);
+			}
+		})
+	}
+
+	function print_vote(post_data, postid)
+	{
+		$("#votes_label " + postid).text(post_data.count);
+	}
+</script>
+
 </head>
 <body>
 

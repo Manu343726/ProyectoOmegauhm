@@ -7,23 +7,19 @@
 		<div class="row">
 			<div class="col-md-2">
 				<div class="row">
-					<a href="${pageContext.request.contextPath}/vote/${post.id}/1">
-						<button type="button" class="btn btn-default btn-sl"
-							id="voting_button">
-							<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-						</button>
-					</a>
+					<button type="button" class="voting_button_up btn btn-default btn-sl"
+						id="votingbuttonup_${post.id}">
+						<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+					</button>
 				</div>
 				<div class="row">
-					<a href="${pageContext.request.contextPath}/vote/${post.id}/-1">
-						<button type="button" class="btn btn-default btn-sl"
-							id="voting_button">
-							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-						</button>
-					</a>
+					<button type="button" class="voting_button_down btn btn-default btn-sl"
+						id="votingbuttondown_${post.id}">
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					</button>
 				</div>
 				<div class="row">
-					<span class="label label-default">${post.votesCount} points</span>
+					<span class="label label-default" id="voteslabel_${post.id}">${post.votesCount}</span>
 				</div>
 			</div>
 

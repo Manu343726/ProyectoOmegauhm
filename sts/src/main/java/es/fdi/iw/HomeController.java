@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -434,21 +436,23 @@ public class HomeController {
 	 * Votes on post
 	 */
 	@Transactional
-	@RequestMapping(value = "/vote/{id}/{value}", method = RequestMethod.GET)
-	public String vote(@PathVariable("id") long id,
+	@ResponseBody
+	@RequestMapping(value = "/vote/{id}/{value}")
+	public ResponseEntity<String> vote(@PathVariable("id") long id,
 			@PathVariable("value") int value, HttpSession session,
 			HttpServletRequest request) {
 
 		if (!this.isLogged(session))
-			return "401"; // go fuck yourself
+			return new ResponseEntity<String>("Not logged in", HttpStatus.BAD_REQUEST);
 		
 		Post post = IWEntityManager.get(entityManager).postById(id);
 
 		Vote vote = IWEntityManager.get(entityManager).votePost(id, (User)session.getAttribute("user"), value >= 0);
 		
-		System.err.println(vote);
-		
-		return "redirect:/" + post.getUri();
+		return new ResponseEntity<String>("{ \"count\": \"" + post.getVotesCount() + "\"," +
+			                              "\"id\": \"" + id + "\"," +
+			                              "\"vote\": \"" + value + "\"}",
+				                          HttpStatus.OK);
 	}
 	
 	@Transactional
