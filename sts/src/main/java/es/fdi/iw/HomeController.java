@@ -464,7 +464,7 @@ public class HomeController {
 			session.setAttribute("moderationQueue", 
 			           IWModerationManager.get(entityManager).moderationQueue());
 	
-			return "moderation";
+			return "redirect:/moderation";
 		}
 		else
 			return "redirect:/login";
