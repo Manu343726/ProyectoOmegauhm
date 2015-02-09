@@ -105,7 +105,7 @@ public class IWModerationManager {
 	
 	@SuppressWarnings("unchecked")
 	public List<Moderation> moderationByDate() {
-		return (List<Moderation>) manager.createNamedQuery("ModerationByDate").getResultList();
+		return (List<Moderation>) manager.createNamedQuery("moderationsByDate").getResultList();
 	}
 	
 	public Moderation moderationByid(long id) {
