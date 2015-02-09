@@ -69,11 +69,11 @@ public class IWFileManager
 		}
 	}
 	
-	public es.fdi.iw.model.File uploadFile(MultipartFile load, String tags, User owner)
+	public es.fdi.iw.model.File uploadFile(MultipartFile load, String tags, User owner, String grado, String curso)
 	{
 		if (!load.isEmpty()) {
             try {
-            	es.fdi.iw.model.File file = es.fdi.iw.model.File.createFile(load.getOriginalFilename(), tags, owner);
+            	es.fdi.iw.model.File file = es.fdi.iw.model.File.createFile(load.getOriginalFilename(), tags, owner, grado, curso);
             			
                 byte[] bytes = load.getBytes();
                 BufferedOutputStream stream =

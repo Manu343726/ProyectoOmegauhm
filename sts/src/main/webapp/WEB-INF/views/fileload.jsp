@@ -34,10 +34,40 @@
 	<div class="container">
 		<form method="POST" enctype="multipart/form-data" action="fileload">
 			<div class="form-group">
-				<label for="exampleInputFile">File input</label> <input type="file"
-					class="form-control" id="file" name="file" required>
+				<label for="exampleInputFile">File input</label> <input type="file" class="form-control" id="file" name="file" required>
 				<p class="help-block">Select your file.</p>
 				<input type="text" class="form-control" id="tags" name="tags"/>
+				
+				
+				
+				<div class="row" id="grados">
+					<label class="radio-inline">
+				    	<input type="radio" name="grado" id="grado" value="grado-gii">Grado en Ingeniería Informática
+				    </label>
+				    <label class="radio-inline">
+				    	<input type="radio" name="grado" id="grado" value="grado-gic">Grado en Ingeniería de Computadores
+				    </label>
+				    <label class="radio-inline">
+				    	<input type="radio" name="grado" id="grado" value="grado-gis">Grado en Ingeniería del Software
+				    </label>
+				</div>
+				
+				<div class="row" id="cursos">
+					<label class="radio-inline">
+				    	<input type="radio" name="curso" id="curso" value="curso-1">1
+				    </label>
+				    <label class="radio-inline">
+				    	<input type="radio" name="curso" id="curso" value="curso-2">2
+				    </label>
+				    <label class="radio-inline">
+				    	<input type="radio" name="curso" id="curso" value="curso-3">3
+				    </label>
+				    <label class="radio-inline">
+				    	<input type="radio" name="curso" id="cusro" value="curso-4">4
+				    </label>
+				</div>
+				
+				
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>

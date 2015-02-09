@@ -26,11 +26,12 @@ public class File {
 	private String tags;
 	private User owner;
 	private boolean deletePending; //File deletion event is on moderation queue, an user has no direct rights to delete a file
+	private String grado;
+	private String curso;
 
-	public File() {
-	}
+	public File() {}
 	
-	public static File createFile(String name, String tags, User owner) {
+	public static File createFile(String name, String tags, User owner, String grado, String curso) {
 		File f = new File();
 		f.name = name;
 		f.date = new Date(); //RTFM, is initialized to the time of allocation
@@ -90,6 +91,22 @@ public class File {
 
 	public void setDeletePending(boolean deletePending) {
 		this.deletePending = deletePending;
+	}
+	
+	public String getGrado() {
+		return grado;
+	}
+	
+	public void setGrado(String grado) {
+		this.grado = grado;
+	}
+	
+	public String getCurso() {
+		return curso;
+	}
+	
+	public void setCurso(String curso) {
+		this.curso = curso;
 	}
 	
 	@Transient

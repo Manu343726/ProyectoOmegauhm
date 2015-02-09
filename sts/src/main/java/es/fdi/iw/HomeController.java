@@ -135,9 +135,15 @@ public class HomeController {
 	public String handleFileUpload(
 			@RequestParam("file") MultipartFile load,
 			@RequestParam("tags") String tags,
+			@RequestParam("grado") String grado,
+			@RequestParam("curso") String curso,
 			HttpSession session) {
+		
+		logger.info(grado);
+		logger.info(curso);
+		
 		es.fdi.iw.model.File file = ContextInitializer.getFileManager(entityManager)
-				.uploadFile(load, tags, (User)session.getAttribute("user"));
+				.uploadFile(load, tags, (User)session.getAttribute("user"), grado, curso);
 
 		if (file != null) {
 			entityManager.persist(file);
